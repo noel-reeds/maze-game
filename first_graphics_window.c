@@ -49,7 +49,6 @@ int main(void)
 					/* handle buttons events */
 					for (int y = 0; y < TOTAL_BUTTONS; y++)
 					{
-						handle_event(&buttons[y], &event_e);
 					}
 				}
 				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -57,7 +56,6 @@ int main(void)
 				/* render buttons */
 				for (int x = 0; x < TOTAL_BUTTONS; x++)
 				{
-					button_render(&buttons[x]);
 				}
 				SDL_RenderPresent(renderer);
 			}

@@ -48,7 +48,7 @@ int main(void)
 					/* handle buttons events */
 					for (int y = 0; y < TOTAL_BUTTONS; y++)
 					{
-						ButtonSprite[y].handle_event(&event_e);
+						ButtonSprite[y]->handle_event(&event_e);
 					}
 				}
 				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -56,7 +56,7 @@ int main(void)
 				/* render buttons */
 				for (int x = 0; x < TOTAL_BUTTONS; x++)
 				{
-					ButtonSprite[x].button_render();
+					ButtonSprite[x]->button_render();
 				}
 				SDL_RenderPresent(renderer);
 			}

@@ -1,6 +1,6 @@
 #include "main.h"
-SDL_Surface *current_sprite;
-SDL_Surface *ButtonSprite[ BS_TOTAL ];
+enum ButtonSprite current_sprite;
+SDL_Surface *ButtonSprite[ TOTAL_BUTTONS ];
 SDL_Point pos;
 
 void initialize_button(void)
@@ -53,5 +53,5 @@ void handle_event(SDL_Event *event)
 
 void button_render(void)
 {
-	render(renderer, ss_texture, pos.x, pos.y, sprite_clips[current_sprite], NULL, NULL, SDL_FLIP_NONE);
+	render(renderer, ss_texture, pos.x, pos.y, sprite_clips[current_sprite], 0.0, NULL, SDL_FLIP_NONE);
 }

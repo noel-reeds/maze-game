@@ -71,19 +71,20 @@ enum ButtonSprite
 	BS_MOUSE_UP = 3,
 	BS_TOTAL = 4
 };
-
-typedef struct button_handler
+/*
+typedef struct button_event_handler
 {
-	SDL_Surface *cs;
+	SDL_Surface *buttons[ TOTAL_BUTTONS ];
 	void button_render(void);
 	void *handle_event(SDL_Event *event);
 	void *set_button_position(int x, int y);
 	void initialize_button(void);
-} bt_handler;
+} button_e_handler;
+*/
 
 /* game window initializations */
-extern SDL_Surface *current_sprite;
-extern SDL_Surface *ButtonSprite[ BS_TOTAL ];
+extern SDL_Rect *sprite_clips[ BS_TOTAL ];
+extern SDL_Surface *ButtonSprite[ TOTAL_BUTTONS ];
 extern SDL_Surface *screenSurface;
 extern SDL_Window *window;
 extern SDL_Surface *currentSurface;
@@ -94,7 +95,6 @@ extern SDL_Texture *texture;
 extern _Texture *foo_texture;
 extern _Texture *bg_texture;
 extern SDL_Point pos;
-extern SDL_Rect *sprite_clips[ BS_TOTAL ];
 extern _Texture *ss_texture;
 
 extern _Texture *mod_texture;

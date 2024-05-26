@@ -4,7 +4,7 @@
  * main - entry point of a C program
  * Return: returns void
  */
-int main(void)
+int main( int argc, char* argv[] )
 {
     SDL_Instance instance;
     if (init_instance(&instance) != 0)

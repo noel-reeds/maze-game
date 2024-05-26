@@ -1,5 +1,4 @@
-#include <SDL2/SDL.h>
-#include "main.h"
+#include "inc/main.h"
 /**
  * draw_stuff - render a random stuff
  *

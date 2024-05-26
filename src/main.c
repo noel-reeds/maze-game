@@ -3,7 +3,7 @@
  * main - entry point of a C program
  * Return: returns 0 on success
  */
-int main( int argc, char* argv[] )
+int main(void)
 {
         SDL_Instance instance;
 

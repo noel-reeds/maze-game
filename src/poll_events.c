@@ -1,5 +1,4 @@
-#include <SDL2/SDL/h>
-#include "main.h"
+#include "inc/main.h"
 /**
  * poll_events - retrieves pending events.
  *
@@ -16,11 +15,11 @@ int poll_events()
 		{
 		case SDL_QUIT:
 			return (1);
-		case KEY_DOWN:
+		case SDL_KEYDOWN:
 			key = event.key;
 			if (key.keysym.scancode == 0x29)
 				return (1);
-			break
+			break;
 		}
 	}
 	return (0);

@@ -3,7 +3,7 @@
  * main - entry point of a C program
  * Return: returns 0 on success
  */
-int main(int argc, char *argv[])
+int main(void)
 {
         SDL_Instance instance;
 
@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
                 SDL_RenderClear(instance.renderer);
                 if (poll_events() == 1)
                         break;
-                draw_stuff(instance);
+                draw_map(&instance);
                 SDL_RenderPresent(instance.renderer);
         }
 

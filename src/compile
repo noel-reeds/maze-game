@@ -1,2 +1,4 @@
 #!/usr/bin/bash
-gcc -Wall -Werror -Wextra -pedantic *.c -o snipper `sdl2-config --cflags --libs`
+gcc -Wall -Werror -Wextra -pedantic *.c -o snipper `sdl2-config --cflags --libs` -lm
+#gcc tests.c -o snipper -lSDL2 -lm
+#gcc *.c -o snipper `sdl2-config --cflags --libs` -lm

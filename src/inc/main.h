@@ -30,4 +30,5 @@ int init_instance(SDL_Instance *);
 void draw_stuff(SDL_Instance instance);
 int poll_events();
 void draw_map(SDL_Instance *instance);
+void draw_player(SDL_Instance *instance, int x, int y, int radius);
 #endif

@@ -1,7 +1,7 @@
-#include "inc/main.h"
+#include "../inc/main.h"
 /**
  * init_instance - initializes an instance
- * @instance: SDL Instance
+ * @instance: pointer to windows and renderer struct
  * Return: returns 0 for success, 1 for an err.
  */
 int init_instance(SDL_Instance *instance)
@@ -15,7 +15,8 @@ int init_instance(SDL_Instance *instance)
 
 	/* create a new window instance */
 	instance->window = SDL_CreateWindow("Battle Snipper",
-		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1260, 720, 0);
+		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+			SCREEN_WIDTH, SCREEN_HEIGHT, 0);
 
 	if (instance->window == NULL)
 	{

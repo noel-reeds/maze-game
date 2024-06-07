@@ -4,7 +4,7 @@
  *
  * Return: returns 0 on success, otherwise err.
  */
-int poll_events()
+int poll_events(void)
 {
 	SDL_Event event;
 	SDL_KeyboardEvent key;

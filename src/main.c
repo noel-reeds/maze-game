@@ -3,6 +3,7 @@
  * main - entry point of a C program
  * Return: returns 0 on success
  */
+
 int main(void)
 {
         SDL_Instance instance;
@@ -17,6 +18,7 @@ int main(void)
                 if (poll_events() == 1)
                         break;
                 draw_map(&instance);
+				draw_player(&instance, 400, 300, 25);
                 SDL_RenderPresent(instance.renderer);
         }
 

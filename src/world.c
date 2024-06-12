@@ -46,7 +46,7 @@ void draw_map(SDL_Instance *instance)
 */
 int collision_detection(int x, int y)
 {
-	int map_x1, map_y1, map_x2, map_y2;
+	int map_x1, map_y1;
 
 	if (x < 0 || x + PLAYER_SIZE > SCREEN_WIDTH || y < 0 ||
 		y + PLAYER_SIZE > SCREEN_HEIGHT)
@@ -56,10 +56,8 @@ int collision_detection(int x, int y)
 
 	map_x1 = x / CELL_SIZE;
 	map_y1 = y / CELL_SIZE;
-	map_x2 = (x + PLAYER_SIZE - 1) / CELL_SIZE;
-	map_y2 = (y + PLAYER_SIZE - 1) / CELL_SIZE;
-	if (map[map_y1][map_x1] != 0 || map[map_y1][map_x2] != 0 ||
-		map[map_y2][map_x1] != 0 || map[map_y2][map_x2] != 0)
+
+	if (map[map_y1][map_x1] != 0)
 	{
 		return (1);
 	}

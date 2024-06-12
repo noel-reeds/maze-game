@@ -37,4 +37,4 @@ int main(void)
 	SDL_DestroyWindow(instance.window);
 	SDL_Quit();
 	return (0);
-}i
+}

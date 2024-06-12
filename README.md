@@ -15,8 +15,9 @@ Battle Snipper is a maze shooter game, with a thrilling 3D adventure where you c
 
 ### Installation
 **Prerequisites**
-* Operating System: Windows, masOS, or Linux
-* Window display assistant: OpenGl or VcXsrv(For windows 10 users. Windows 11 users don't need to install these)
+
+* Operating System: `Windows`, `macOS`, or `Linux`
+* Window display assistant: `OpenGl` or `VcXsrv`(For windows 10 users. Windows 11 users don't need to install any of these)
 * Compiler: run the `compile` file as ./compile
 
 
@@ -24,33 +25,33 @@ Battle Snipper is a maze shooter game, with a thrilling 3D adventure where you c
 
 1. Clone the Repository
 
-	git clone https://github.com/fred-mba/Maze.git
-	cd Maze
+`git clone https://github.com/fred-mba/Maze.git`
+`cd Maze`
 
 2. Run the Game
-	./snipper
+`./snipper`
 
 
 ### Usage
 Once the game is running, you can use the following controls to play:
-* w/a/s/d: Move Up/Left/Down/Right
-* Esc: Exit the game
+* `w/a/s/d`: Move Up/Left/Down/Right
+* `Esc`: Exit the game
 
 
 ### Contributing
 * We welcome contributions from the community! Here's how you can get involved:
 1. Fork the repository
-- Click the "Fork" button at the top right of this page and clone your fork
+- Click the `Fork` button at the top right of this page and clone your fork
 
 2. Create a Branch
 
-	git checkout -b feature/your-feature-name
+`git checkout -b feature/your-feature-name`
 
 3. Make your changes
 
 4. Push to your fork
 
-	git push origin feature/your-feature-name
+`git push origin feature/your-feature-name`
 
 
 ### Related Projects

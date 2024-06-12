@@ -11,13 +11,13 @@
 float calculate_light_intensity(float x, float y, Light *lights, int num_lights)
 {
 	float intensity = 0.0f, distance;
-	int i;
+	int ray;
 
-	for (i = 0; i < num_lights; i++)
+	for (ray = 0; ray < num_lights; ray++)
 	{
-		distance = sqrtf(powf(lights[i].x - x, 2) + powf(lights[i].y - y, 2));
+		distance = sqrtf(powf(lights[ray].x - x, 2) + powf(lights[ray].y - y, 2));
 		if (distance < 1.0f) distance = 1.0f;
-		intensity += lights[i].intensity / (distance * distance);
+		intensity += lights[ray].intensity / (distance * distance);
 	}
 	if (intensity > 1.0f) intensity = 1.0f;
 	return intensity;
@@ -32,14 +32,14 @@ float calculate_light_intensity(float x, float y, Light *lights, int num_lights)
 */
 void render_3d_walls(SDL_Instance *instance, Player *player, Light *lights, int num_lights)
 {
-	int plane_width, i, hit_wall, wall_type, mapX, mapY, ceiling, floor_height;
+	int plane_width, ray, hit_wall, wall_type, mapX, mapY, ceiling, floor_height;
 	float ray_angle, distance_to_wall, rayDirX, rayDirY, wall_x, wall_y, light_intensity;
 
 	plane_width = SCREEN_WIDTH / NUM_RAYS;
 
-	for (i = 0; i < NUM_RAYS; i++)
+	for (ray = 0; ray < NUM_RAYS; ray++)
 	{
-		ray_angle = player->pa - FOV / 2 + i * (FOV / NUM_RAYS);
+		ray_angle = player->pa - FOV / 2 + ray * (FOV / NUM_RAYS);
 		distance_to_wall = 0;
 		hit_wall = 0;
 		wall_type = 0;
@@ -73,12 +73,12 @@ void render_3d_walls(SDL_Instance *instance, Player *player, Light *lights, int 
 
 		ceiling = (SCREEN_HEIGHT / 2.0) - SCREEN_HEIGHT / (distance_to_wall);
 		SDL_SetRenderDrawColor(instance->renderer, 173, 216, 250, 255);
-                SDL_Rect ceiling_rect = {i * plane_width, 0, plane_width, ceiling};
+                SDL_Rect ceiling_rect = {ray * plane_width, 0, plane_width, ceiling};
                 SDL_RenderFillRect(instance->renderer, &ceiling_rect);
 
 		floor_height = SCREEN_HEIGHT - ceiling;
 		SDL_SetRenderDrawColor(instance->renderer, 0, 128, 0, 255);
-                SDL_Rect floor_rect = {i * plane_width, floor_height, plane_width, SCREEN_HEIGHT - floor_height};
+                SDL_Rect floor_rect = {ray * plane_width, floor_height, plane_width, SCREEN_HEIGHT - floor_height};
                 SDL_RenderFillRect(instance->renderer, &floor_rect);
 
 		wall_x = player->px + rayDirX * distance_to_wall;
@@ -118,7 +118,7 @@ void render_3d_walls(SDL_Instance *instance, Player *player, Light *lights, int 
 
 		SDL_SetRenderDrawColor(instance->renderer, red, green, blue, 255);
 
-		SDL_Rect wall_rect = {i * plane_width, ceiling, plane_width, floor_height - ceiling};
+		SDL_Rect wall_rect = {ray * plane_width, ceiling, plane_width, floor_height - ceiling};
 		SDL_RenderFillRect(instance->renderer, &wall_rect);
 	}
 }

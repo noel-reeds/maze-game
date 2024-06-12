@@ -26,6 +26,7 @@ Battle Snipper is a maze shooter game, with a thrilling 3D adventure where you c
 1. Clone the Repository
 
 `git clone https://github.com/fred-mba/Maze.git`
+
 `cd Maze`
 
 2. Run the Game

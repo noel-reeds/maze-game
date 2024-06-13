@@ -9,7 +9,7 @@ Battle Snipper is a maze shooter game, with a thrilling 3D adventure where you c
 
 ### Authors
 
-  * Noel Reeds - [LinkedIn]()
+  * Noel Reeds - [LinkedIn](https://www.linkedin.com/in/noel-reeds-5516bb130/)
   * Fredrick Mbanga - [LinkedIn](https://ke.linkedin.com/in/frederick-mbanga-046755210)
 
 

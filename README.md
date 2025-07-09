@@ -1,6 +1,6 @@
-# BattleField Snipper - MAZE
+# BattleField - MAZE
 
-## INTRODUCTION
+## Introduction
 Battle Snipper is a maze shooter game, with a thrilling 3D adventure where you can navigate through gaming world, face off against enemies, and unlock new levels. Inspired by classic shooting games, this project uses simple gaming engine technology(SDL2) to bring features to life.
 
 * Final Project Blog Article: [Read Our Development Journey](https://medium.com/@noelreeds/battlefield-snipper-maze-6ed432ae9430)

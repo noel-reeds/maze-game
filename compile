@@ -1,2 +1,0 @@
-#!/usr/bin/bash
-gcc -Wall -Werror -Wextra -pedantic src/*.c -o snipper `sdl2-config --cflags --libs` -lm

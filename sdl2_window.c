@@ -1,4 +1,4 @@
-#include "../inc/main.h"
+#include "main.h"
 /**
  * init_instance - initializes an instance
  * @instance: pointer to windows and renderer struct

@@ -1,4 +1,4 @@
-#include "../inc/main.h"
+#include "main.h"
 /**
  * poll_events - handles user input through event loop from the SDL event queue
  * @player: pointer that access players attributes on Player struct

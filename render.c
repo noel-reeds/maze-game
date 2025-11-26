@@ -1,4 +1,4 @@
-#include "../inc/main.h"
+#include "main.h"
 /**
  * calculate_light_intensity - calculates increase in light intensity per each
  *	direction along the x, y axis

@@ -1,4 +1,4 @@
-#include "../inc/main.h"
+#include "main.h"
 /**
  * draw_map - constructs 2D different wall types determined by value 1-2
  * @instance: encapsulates SDL window and renderer pointers

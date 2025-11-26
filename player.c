@@ -1,4 +1,4 @@
-#include "../inc/main.h"
+#include "main.h"
 /**
  * create_player - creates a player in a field
  *

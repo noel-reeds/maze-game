@@ -1,4 +1,4 @@
-#include "inc/main.h"
+#include "main.h"
 /**
  * draw_stuff - render a random stuff
  *

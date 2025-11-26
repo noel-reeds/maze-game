@@ -1,4 +1,4 @@
-#include "../inc/main.h"
+#include "main.h"
 /**
  * main - main loop of SDL program
  * Return: returns 0 on success

@@ -1,8 +1,14 @@
 #ifndef _DEMO_H_
 #define _DEMO_H_
 
+/* screen dimension constants */
+const int SCREEN_WIDTH = 640;
+const int SCREEN_HEIGHT = 480;
+
+/*
 #define SCREEN_WIDTH 1024
 #define SCREEN_HEIGHT 510
+*/
 #define MAP_WIDTH 9
 #define MAP_LENGTH 12
 #define CELL_SIZE 16

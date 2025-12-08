@@ -2,12 +2,15 @@
 #include "main.h"
 #include <SDL.h>
 
-/* the window we'll be rendering to */
-SDL_Window *window = NULL;
-/* the surface contained by the window */
-SDL_Surface *screenSurface = NULL;
-/* image to load and show on the screen */
-SDL_Surface *hello_world = NULL;
+/* Key press surface constants */
+enum KeyPressSurfaces {
+	KEY_PRESS_SURFACE_DEFAULT,
+	KEY_PRESS_SURFACE_UP,
+	KEY_PRESS_SURFACE_DOWN,
+	KEY_PRESS_SURFACE_LEFT,
+	KEY_PRESS_SURFACE_RIGHT,
+	KEY_PRESS_SURFACE_TOTAL
+};
 
 /**
  * main - game etry point
@@ -34,19 +37,33 @@ int main(void)
 			SDL_BlitSurface(hello_world, NULL, screenSurface, NULL);
 			SDL_UpdateWindowSurface(window);
 			/* window to stay up */
-			SDL_Event e;
+			SDL_Event event_e;
 			bool quit = false;
 
 			while (!quit)
 			{
-				while (SDL_PollEvent(&e))
+				while (SDL_PollEvent(&event_e))
 				{
-					if (e.type == SDL_QUIT)
+					switch (event_e.type)
 					{
+					case SDL_MOUSEMOTION:
+						SDL_Log("Mouse position: (%d, %d)\n", event_e.motion.x, event_e.motion.y);
+						break;
+					case SDL_QUIT:
 						quit = true;
+						break;
+					default:
+						SDL_Log("Unhandled Event!");
+						break;
+					case SDL_KEYDOWN:
+						SDL_Log("%s key pressed!\n", SDL_GetKeyName(event_e.key.keysym.sym));
+						break;
+					case SDL_KEYUP:
+						break;
 					}
 				}
 			}
+			SDL_Log("Event queue is empty.");
 		}
 		/* free mem and close SDL */
 		close_sdl();

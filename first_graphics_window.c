@@ -2,16 +2,6 @@
 #include "main.h"
 #include <SDL.h>
 
-/* Key press surface constants */
-enum KeyPressSurfaces {
-	KEY_PRESS_SURFACE_DEFAULT,
-	KEY_PRESS_SURFACE_UP,
-	KEY_PRESS_SURFACE_DOWN,
-	KEY_PRESS_SURFACE_LEFT,
-	KEY_PRESS_SURFACE_RIGHT,
-	KEY_PRESS_SURFACE_TOTAL
-};
-
 /**
  * main - game etry point
  *
@@ -47,13 +37,13 @@ int main(void)
 					switch (event_e.type)
 					{
 					case SDL_MOUSEMOTION:
-						SDL_Log("Mouse position: (%d, %d)\n", event_e.motion.x, event_e.motion.y);
+						SDL_Log("mouse position: (%d, %d)\n", event_e.motion.x, event_e.motion.y);
 						break;
 					case SDL_QUIT:
 						quit = true;
 						break;
 					default:
-						SDL_Log("Unhandled Event!");
+						SDL_Log("unhandled Event!");
 						break;
 					case SDL_KEYDOWN:
 						SDL_Log("%s key pressed!\n", SDL_GetKeyName(event_e.key.keysym.sym));

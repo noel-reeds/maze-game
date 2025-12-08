@@ -23,9 +23,21 @@ const int SCREEN_HEIGHT = 480;
 #include <stdbool.h>
 #include <math.h>
 
+/* game window initializations */
 SDL_Window *window = NULL;
 SDL_Surface *screenSurface = NULL;
 SDL_Surface *hello_world = NULL;
+
+/* Key press surface constants */
+enum KeyPressSurfaces
+{
+	KEY_PRESS_SURFACE_DEFAULT,
+	KEY_PRESS_SURFACE_UP,
+	KEY_PRESS_SURFACE_DOWN,
+	KEY_PRESS_SURFACE_LEFT,
+	KEY_PRESS_SURFACE_RIGHT,
+	KEY_PRESS_SURFACE_TOTAL
+}
 
 typedef struct
 {

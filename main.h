@@ -19,10 +19,13 @@ const int SCREEN_HEIGHT = 480;
 #define MAX_DEPTH 512
 
 #include <stdio.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_timer.h>
+#include <SDL.h>
 #include <stdbool.h>
 #include <math.h>
+
+SDL_Window *window = NULL;
+SDL_Surface *screenSurface = NULL;
+SDL_Surface *hello_world = NULL;
 
 typedef struct
 {
@@ -56,5 +59,6 @@ float calculate_light_intensity(float x, float y, Light *lights, int num_lights)
 bool initialize_sdl(void);
 bool loading_media(void);
 void close_sdl(void);
+
 
 #endif

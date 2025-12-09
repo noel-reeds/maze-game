@@ -2,13 +2,9 @@
 #define _DEMO_H_
 
 /* screen dimension constants */
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
-
-/*
 #define SCREEN_WIDTH 1024
 #define SCREEN_HEIGHT 510
-*/
+
 #define MAP_WIDTH 9
 #define MAP_LENGTH 12
 #define CELL_SIZE 16
@@ -22,22 +18,6 @@ const int SCREEN_HEIGHT = 480;
 #include <SDL.h>
 #include <stdbool.h>
 #include <math.h>
-
-/* game window initializations */
-SDL_Window *window = NULL;
-SDL_Surface *screenSurface = NULL;
-SDL_Surface *hello_world = NULL;
-
-/* Key press surface constants */
-enum KeyPressSurfaces
-{
-	KEY_PRESS_SURFACE_DEFAULT,
-	KEY_PRESS_SURFACE_UP,
-	KEY_PRESS_SURFACE_DOWN,
-	KEY_PRESS_SURFACE_LEFT,
-	KEY_PRESS_SURFACE_RIGHT,
-	KEY_PRESS_SURFACE_TOTAL
-}
 
 typedef struct
 {
@@ -57,6 +37,23 @@ typedef struct {
 	float intensity;
 } Light;
 
+/* Key press surface constants */
+enum KeyPressSurfaces
+{
+	KEY_PRESS_SURFACE_DEFAULT,
+	KEY_PRESS_SURFACE_UP,
+	KEY_PRESS_SURFACE_DOWN,
+	KEY_PRESS_SURFACE_LEFT,
+	KEY_PRESS_SURFACE_RIGHT,
+	KEY_PRESS_SURFACE_TOTAL
+};
+
+/* game window initializations */
+SDL_Window *window = NULL;
+SDL_Surface *screenSurface = NULL;
+SDL_Surface *KeyPressSurfaces[ KEY_PRESS_SURFACE_TOTAL ];
+SDL_Surface *currentSurface = NULL;
+
 extern int map[MAP_WIDTH][MAP_LENGTH];
 
 int init_instance(SDL_Instance *);
@@ -71,6 +68,6 @@ float calculate_light_intensity(float x, float y, Light *lights, int num_lights)
 bool initialize_sdl(void);
 bool loading_media(void);
 void close_sdl(void);
-
+SDL_Surface *loadSurface(const char *surface_path);
 
 #endif

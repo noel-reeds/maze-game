@@ -2,8 +2,8 @@
 #define _DEMO_H_
 
 /* screen dimension constants */
-#define SCREEN_WIDTH 1024
-#define SCREEN_HEIGHT 510
+#define SCREEN_WIDTH 600
+#define SCREEN_HEIGHT 600
 
 #define MAP_WIDTH 9
 #define MAP_LENGTH 12

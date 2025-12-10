@@ -69,5 +69,6 @@ bool initialize_sdl(void);
 bool loading_media(void);
 void close_sdl(void);
 SDL_Surface *loadSurface(const char *surface_path);
+void *stretched_surface(void);
 
 #endif

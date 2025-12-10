@@ -73,7 +73,7 @@ int main(void)
 								currentSurface = KeyPressSurfaces[ KEY_PRESS_SURFACE_DEFAULT ];
 								break;
 						}
-						SDL_BlitSurface(currentSurface, NULL, screenSurface, NULL);
+						SDL_BlitScaled(currentSurface, NULL, screenSurface, &stretched);
 						SDL_UpdateWindowSurface(window);
 					}
 				}

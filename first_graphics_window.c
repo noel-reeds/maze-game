@@ -25,7 +25,12 @@ int main(void)
 		{
 			/* apply DEFAULT screen surface */
 			currentSurface = KeyPressSurfaces[ KEY_PRESS_SURFACE_DEFAULT ];
-			SDL_BlitSurface(currentSurface, NULL, screenSurface, NULL);
+			SDL_Rect stretched;
+			stretched.x = 0;
+			stretched.y = 0;
+			stretched.w = SCREEN_WIDTH;
+			stretched.h = SCREEN_HEIGHT;
+			SDL_BlitScaled(currentSurface, NULL, screenSurface, &stretched);
 			SDL_UpdateWindowSurface(window);
 			/* window to stay up */
 			bool quit = false;
@@ -196,12 +201,29 @@ void close_sdl(void)
  */
 SDL_Surface *loadSurface(const char *surface_path)
 {
-	SDL_Surface *loadedSurface = SDL_LoadBMP(surface_path);
-	if (!loadedSurface)
+	/* The final optimized image */
+	SDL_Surface *optimized_surface = NULL;
+	/* load image at specified path */
+	SDL_Surface *loaded_surface = SDL_LoadBMP(surface_path);
+	if (!loaded_surface)
 	{
 		printf("unable to load image %s! SDL Error: %s\n",
 				surface_path, SDL_GetError());
 	}
-	return loadedSurface;
+	else
+	{
+		/* convert surface to screen format */
+		optimized_surface = SDL_ConvertSurface(
+								loaded_surface,
+								screenSurface->format,
+								0);
+		if (!optimized_surface)
+		{
+			printf("unable to optimize image %s! SDL Error: %s\n",
+					surface_path, SDL_GetError());
+		}
+		/* remove old loaded surface */
+		SDL_FreeSurface(loaded_surface);
+	}
+	return optimized_surface;
 }
-

@@ -1,6 +1,5 @@
 /* using SDL and standard IO */
 #include "main.h"
-#include <SDL.h>
 
 /**
  * main - game etry point
@@ -116,8 +115,19 @@ bool initialize_sdl(void)
 		}
 		else
 		{
-			/* get window surface */
-			screenSurface = SDL_GetWindowSurface(window);
+			/* Initialize PNG loading */
+			int img_flags = IMG_INIT_PNG;
+			if ( !(IMG_Init( img_flags ) & img_flags ))
+			{
+				printf("SDL_image could not initialize! SDL_image Error: %s\n",
+						IMG_GetError());
+				success = false;
+			}
+			else
+			{
+				/* Get window surface */
+				screenSurface = SDL_GetWindowSurface(window);
+			}
 		}
 	}
 	return (success);
@@ -204,11 +214,11 @@ SDL_Surface *loadSurface(const char *surface_path)
 	/* The final optimized image */
 	SDL_Surface *optimized_surface = NULL;
 	/* load image at specified path */
-	SDL_Surface *loaded_surface = SDL_LoadBMP(surface_path);
+	SDL_Surface *loaded_surface = IMG_Load(surface_path);
 	if (!loaded_surface)
 	{
 		printf("unable to load image %s! SDL Error: %s\n",
-				surface_path, SDL_GetError());
+				surface_path, IMG_GetError());
 	}
 	else
 	{

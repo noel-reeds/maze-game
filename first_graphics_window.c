@@ -1,5 +1,11 @@
 #include "main.h"
 
+SDL_Surface *KeyPressSurfaces[ KEY_PRESS_SURFACE_TOTAL ];
+SDL_Surface *screenSurface = NULL;
+SDL_Window *window = NULL;
+SDL_Surface *currentSurface = NULL;
+SDL_Renderer *renderer = NULL;
+SDL_Texture *texture = NULL;
 /**
  * main - game etry point
  *

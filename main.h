@@ -1,5 +1,5 @@
-#ifndef _DEMO_H_
-#define _DEMO_H_
+#ifndef _MAIN_H_
+#define _MAIN_H_
 
 /* screen dimension constants */
 #define SCREEN_WIDTH 600
@@ -50,10 +50,12 @@ enum KeyPressSurfaces
 };
 
 /* game window initializations */
-SDL_Window *window = NULL;
-SDL_Surface *screenSurface = NULL;
-SDL_Surface *KeyPressSurfaces[ KEY_PRESS_SURFACE_TOTAL ];
-SDL_Surface *currentSurface = NULL;
+extern SDL_Surface *screenSurface;
+extern SDL_Window *window;
+extern SDL_Surface *KeyPressSurfaces[ KEY_PRESS_SURFACE_TOTAL ];
+extern SDL_Surface *currentSurface;
+extern SDL_Renderer *renderer;
+extern SDL_Texture *texture;
 
 extern int map[MAP_WIDTH][MAP_LENGTH];
 
@@ -67,9 +69,10 @@ void render_3d_walls(SDL_Instance *instance, Player *player, Light *lights, int 
 float calculate_light_intensity(float x, float y, Light *lights, int num_lights);
 
 bool initialize_sdl(void);
-bool loading_media(void);
+bool load_media_surface(void);
 void close_sdl(void);
-SDL_Surface *loadSurface(const char *surface_path);
-void *stretched_surface(void);
+SDL_Surface *load_surface(const char *surface_path);
+SDL_Texture *load_texture(const char *image_path);
+bool load_media_texture(void);
 
 #endif

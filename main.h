@@ -52,8 +52,8 @@ enum KeyPressSurfaces
 /* game window initializations */
 extern SDL_Surface *screenSurface;
 extern SDL_Window *window;
-extern SDL_Surface *KeyPressSurfaces[ KEY_PRESS_SURFACE_TOTAL ];
 extern SDL_Surface *currentSurface;
+extern SDL_Surface *KeyPressSurfaces[ KEY_PRESS_SURFACE_TOTAL ];
 extern SDL_Renderer *renderer;
 extern SDL_Texture *texture;
 

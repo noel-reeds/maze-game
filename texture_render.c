@@ -1,5 +1,4 @@
 #include "main.h"
-
 /**
  * load_texture - loads image texture
  *

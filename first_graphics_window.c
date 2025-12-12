@@ -1,4 +1,3 @@
-/* using SDL and standard IO */
 #include "main.h"
 
 /**
@@ -16,66 +15,31 @@ int main(void)
 	else
 	{
 		/* loads media */
-		if (!loading_media())
+		if (!load_media_texture())
 		{
 			printf("Failed to load media!\n");
 		}
 		else
 		{
-			/* apply DEFAULT screen surface */
-			currentSurface = KeyPressSurfaces[ KEY_PRESS_SURFACE_DEFAULT ];
-			SDL_Rect stretched;
-			stretched.x = 0;
-			stretched.y = 0;
-			stretched.w = SCREEN_WIDTH;
-			stretched.h = SCREEN_HEIGHT;
-			SDL_BlitScaled(currentSurface, NULL, screenSurface, &stretched);
-			SDL_UpdateWindowSurface(window);
 			/* window to stay up */
 			bool quit = false;
 			/* event handler */
 			SDL_Event event_e;
 			/* while application is running */
-			while(!quit)
+			while (!quit)
 			{
-				while( SDL_PollEvent(&event_e) != 0 )
+				while (SDL_PollEvent(&event_e) != 0)
 				{
 					/* user requests quit */
-					if( event_e.type == SDL_QUIT )
-					{
+					if (event_e.type == SDL_QUIT)
 						quit = true;
-					}
-					/* user presses a key */
-					else if (event_e.type == SDL_KEYDOWN)
-					{
-						/* select surfaces based on key press */
-						switch( event_e.key.keysym.sym )
-						{
-
-							case SDLK_UP:
-								currentSurface = KeyPressSurfaces[ KEY_PRESS_SURFACE_UP ];
-								break;
-
-							case SDLK_DOWN:
-								currentSurface = KeyPressSurfaces[ KEY_PRESS_SURFACE_DOWN ];
-								break;
-
-							case SDLK_LEFT:
-								currentSurface = KeyPressSurfaces[ KEY_PRESS_SURFACE_LEFT ];
-								break;
-
-							case SDLK_RIGHT:
-								currentSurface = KeyPressSurfaces[ KEY_PRESS_SURFACE_RIGHT ];
-								break;
-
-							default:
-								currentSurface = KeyPressSurfaces[ KEY_PRESS_SURFACE_DEFAULT ];
-								break;
-						}
-						SDL_BlitScaled(currentSurface, NULL, screenSurface, &stretched);
-						SDL_UpdateWindowSurface(window);
-					}
 				}
+				/* Clear screen */
+				SDL_RenderClear(renderer);
+				/* Render texture to screen */
+				SDL_RenderCopy(renderer, texture, NULL, NULL);
+				/* Update screen */
+				SDL_RenderPresent(renderer);
 			}
 			SDL_Log("Event queue is empty.");
 		}
@@ -115,18 +79,28 @@ bool initialize_sdl(void)
 		}
 		else
 		{
-			/* Initialize PNG loading */
-			int img_flags = IMG_INIT_PNG;
-			if ( !(IMG_Init( img_flags ) & img_flags ))
+			/* create a renderer for the window */
+			renderer = SDL_CreateRenderer(
+					window, -1,
+					SDL_RENDERER_ACCELERATED);
+			if (!renderer)
 			{
-				printf("SDL_image could not initialize! SDL_image Error: %s\n",
-						IMG_GetError());
+				printf("Renderer could not be created! "
+						"SDL Error: %s\n", SDL_GetError());
 				success = false;
 			}
 			else
 			{
-				/* Get window surface */
-				screenSurface = SDL_GetWindowSurface(window);
+				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+				/* Initialize PNG loading */
+				int img_flags = IMG_INIT_PNG;
+
+				if (!(IMG_Init(img_flags) & img_flags))
+				{
+					printf("SDL_image could not initialize! "
+							"SDL_image Error: %s\n", IMG_GetError());
+					success = false;
+				}
 			}
 		}
 	}
@@ -138,46 +112,46 @@ bool initialize_sdl(void)
  *
  * Return: true or false
  */
-bool loading_media(void)
+bool load_media_surface(void)
 {
 	/* loading success flag */
 	bool success = true;
 	/* load DEFAULT surface */
-	KeyPressSurfaces[ KEY_PRESS_SURFACE_DEFAULT ] = loadSurface(
+	KeyPressSurfaces[KEY_PRESS_SURFACE_DEFAULT] = load_surface(
 			"04_key_presses/press.bmp");
-	if ( !KeyPressSurfaces[ KEY_PRESS_SURFACE_DEFAULT ] )
+	if (!KeyPressSurfaces[KEY_PRESS_SURFACE_DEFAULT])
 	{
 		printf("failed to load DEFAULT image!\n");
 		success = false;
 	}
 	/* load UP surface */
-	KeyPressSurfaces[ KEY_PRESS_SURFACE_UP ] = loadSurface(
+	KeyPressSurfaces[KEY_PRESS_SURFACE_UP] = load_surface(
 			"04_key_presses/up.bmp");
-	if ( !KeyPressSurfaces[ KEY_PRESS_SURFACE_UP ] )
+	if (!KeyPressSurfaces[KEY_PRESS_SURFACE_UP])
 	{
 		printf("unable to load UP image!\n");
 		success = false;
 	}
 	/* load DOWN surface */
-	KeyPressSurfaces[ KEY_PRESS_SURFACE_DOWN ] = loadSurface(
+	KeyPressSurfaces[KEY_PRESS_SURFACE_DOWN] = load_surface(
 			"04_key_presses/down.bmp");
-	if ( !KeyPressSurfaces[ KEY_PRESS_SURFACE_DOWN ] )
+	if (!KeyPressSurfaces[KEY_PRESS_SURFACE_DOWN])
 	{
 		printf("unable to load DOWN image!\n");
 		success = false;
 	}
 	/* load LEFT surface */
-	KeyPressSurfaces[ KEY_PRESS_SURFACE_LEFT ] = loadSurface(
+	KeyPressSurfaces[KEY_PRESS_SURFACE_LEFT] = load_surface(
 			"04_key_presses/left.bmp");
-	if ( !KeyPressSurfaces[ KEY_PRESS_SURFACE_LEFT ] )
+	if (!KeyPressSurfaces[KEY_PRESS_SURFACE_LEFT])
 	{
 		printf("unable to load LEFT image!\n");
 		success = false;
 	}
 	/* load RIGHT surface */
-	KeyPressSurfaces[ KEY_PRESS_SURFACE_RIGHT ] = loadSurface(
+	KeyPressSurfaces[KEY_PRESS_SURFACE_RIGHT] = load_surface(
 			"04_key_presses/right.bmp");
-	if ( !KeyPressSurfaces[ KEY_PRESS_SURFACE_RIGHT ] )
+	if (!KeyPressSurfaces[KEY_PRESS_SURFACE_RIGHT])
 	{
 		printf("unable to load RIGHT image!\n");
 		success = false;
@@ -193,28 +167,32 @@ bool loading_media(void)
 void close_sdl(void)
 {
 	/* deallocate surface */
-	SDL_FreeSurface(currentSurface);
-	currentSurface = NULL;
+	SDL_DestroyTexture(texture);
+	texture = NULL;
 	/* destroy window */
+	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	window = NULL;
+	renderer = NULL;
 	/* quit sdl subsytems */
+	IMG_Quit();
 	SDL_Quit();
 }
 
 /**
  * loadSurface - load image at specified path
  *
- *@hello_world - image path
+ *@surface_path: image path
  *
  * Return: SDL_Surface
  */
-SDL_Surface *loadSurface(const char *surface_path)
+SDL_Surface *load_surface(const char *surface_path)
 {
 	/* The final optimized image */
 	SDL_Surface *optimized_surface = NULL;
 	/* load image at specified path */
 	SDL_Surface *loaded_surface = IMG_Load(surface_path);
+
 	if (!loaded_surface)
 	{
 		printf("unable to load image %s! SDL Error: %s\n",
@@ -235,5 +213,5 @@ SDL_Surface *loadSurface(const char *surface_path)
 		/* remove old loaded surface */
 		SDL_FreeSurface(loaded_surface);
 	}
-	return optimized_surface;
+	return (optimized_surface);
 }

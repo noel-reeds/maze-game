@@ -74,5 +74,11 @@ void close_sdl(void);
 SDL_Surface *load_surface(const char *surface_path);
 SDL_Texture *load_texture(const char *image_path);
 bool load_media_texture(void);
+void render_red_filled_quad(void);
+void render_green_outlined_quad(void);
+void draw_blue_horizontal_line(void);
+void vertical_dotted_line(void);
+void top_left_corner_viewport(void);
+void top_right_corner_viewport(void);
 
 #endif

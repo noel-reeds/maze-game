@@ -1,5 +1,4 @@
 #include "main.h"
-
 /**
  * load_texture - loads image texture
  *
@@ -43,7 +42,7 @@ bool load_media_texture(void)
 	bool success = true;
 
 	/* Load PNG texture */
-	texture = load_texture("04_key_presses/press.bmp");
+	texture = load_texture("04_key_presses/minimaps.PNG");
 	if (!texture)
 	{
 		printf("Failed to load media texture\n");

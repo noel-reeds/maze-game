@@ -1,5 +1,11 @@
 #include "main.h"
 
+SDL_Surface *KeyPressSurfaces[ KEY_PRESS_SURFACE_TOTAL ];
+SDL_Surface *screenSurface = NULL;
+SDL_Window *window = NULL;
+SDL_Surface *currentSurface = NULL;
+SDL_Renderer *renderer = NULL;
+SDL_Texture *texture = NULL;
 /**
  * main - game etry point
  *
@@ -14,35 +20,31 @@ int main(void)
 	}
 	else
 	{
-		/* loads media */
-		if (!load_media_texture())
+		/* window to stay up */
+		bool quit = false;
+		/* event handler */
+		SDL_Event event_e;
+		/* while application is running */
+		while (!quit)
 		{
-			printf("Failed to load media!\n");
-		}
-		else
-		{
-			/* window to stay up */
-			bool quit = false;
-			/* event handler */
-			SDL_Event event_e;
-			/* while application is running */
-			while (!quit)
+			while (SDL_PollEvent(&event_e) != 0)
 			{
-				while (SDL_PollEvent(&event_e) != 0)
-				{
-					/* user requests quit */
-					if (event_e.type == SDL_QUIT)
-						quit = true;
-				}
-				/* Clear screen */
-				SDL_RenderClear(renderer);
-				/* Render texture to screen */
-				SDL_RenderCopy(renderer, texture, NULL, NULL);
-				/* Update screen */
-				SDL_RenderPresent(renderer);
+				/* user requests quit */
+				if (event_e.type == SDL_QUIT)
+					quit = true;
 			}
-			SDL_Log("Event queue is empty.");
+			SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0x00, 0x00);
+			/* Clear screen */
+			SDL_RenderClear(renderer);
+			/* Render a filled and outline rectangle */
+			top_left_corner_viewport();
+			SDL_RenderCopy(renderer, texture, NULL, NULL);
+			top_right_corner_viewport();
+			SDL_RenderCopy(renderer, texture, NULL, NULL);
+			/* Update screen */
+			SDL_RenderPresent(renderer);
 		}
+		SDL_Log("Event queue is empty.");
 		/* free mem and close SDL */
 		close_sdl();
 	}
@@ -116,46 +118,6 @@ bool load_media_surface(void)
 {
 	/* loading success flag */
 	bool success = true;
-	/* load DEFAULT surface */
-	KeyPressSurfaces[KEY_PRESS_SURFACE_DEFAULT] = load_surface(
-			"04_key_presses/press.bmp");
-	if (!KeyPressSurfaces[KEY_PRESS_SURFACE_DEFAULT])
-	{
-		printf("failed to load DEFAULT image!\n");
-		success = false;
-	}
-	/* load UP surface */
-	KeyPressSurfaces[KEY_PRESS_SURFACE_UP] = load_surface(
-			"04_key_presses/up.bmp");
-	if (!KeyPressSurfaces[KEY_PRESS_SURFACE_UP])
-	{
-		printf("unable to load UP image!\n");
-		success = false;
-	}
-	/* load DOWN surface */
-	KeyPressSurfaces[KEY_PRESS_SURFACE_DOWN] = load_surface(
-			"04_key_presses/down.bmp");
-	if (!KeyPressSurfaces[KEY_PRESS_SURFACE_DOWN])
-	{
-		printf("unable to load DOWN image!\n");
-		success = false;
-	}
-	/* load LEFT surface */
-	KeyPressSurfaces[KEY_PRESS_SURFACE_LEFT] = load_surface(
-			"04_key_presses/left.bmp");
-	if (!KeyPressSurfaces[KEY_PRESS_SURFACE_LEFT])
-	{
-		printf("unable to load LEFT image!\n");
-		success = false;
-	}
-	/* load RIGHT surface */
-	KeyPressSurfaces[KEY_PRESS_SURFACE_RIGHT] = load_surface(
-			"04_key_presses/right.bmp");
-	if (!KeyPressSurfaces[KEY_PRESS_SURFACE_RIGHT])
-	{
-		printf("unable to load RIGHT image!\n");
-		success = false;
-	}
 	return (success);
 }
 

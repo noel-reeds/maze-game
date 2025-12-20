@@ -56,6 +56,8 @@ extern SDL_Surface *currentSurface;
 extern SDL_Surface *KeyPressSurfaces[ KEY_PRESS_SURFACE_TOTAL ];
 extern SDL_Renderer *renderer;
 extern SDL_Texture *texture;
+extern SDL_Texture *foo_texture;
+extern SDL_Texture *bg_texture;
 
 extern int map[MAP_WIDTH][MAP_LENGTH];
 
@@ -80,5 +82,9 @@ void draw_blue_horizontal_line(void);
 void vertical_dotted_line(void);
 void top_left_corner_viewport(void);
 void top_right_corner_viewport(void);
+void bottom_centre_viewport(void);
+bool load_from_file(const char *str_path);
+void free(void);
+void render(int x, int y);
 
 #endif

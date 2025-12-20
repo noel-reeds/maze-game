@@ -42,10 +42,16 @@ bool load_media_texture(void)
 	bool success = true;
 
 	/* Load PNG texture */
-	texture = load_texture("04_key_presses/minimaps.PNG");
-	if (!texture)
+	foo_texture = load_from_file("10_color_keying/foo.PNG");
+	if (!foo_texture)
 	{
-		printf("Failed to load media texture\n");
+		printf("Failed to load Foo' texture\n");
+		success = false;
+	}
+	bg_texture = load_from_file("10_color_keying/background.png");
+	if (!bg_texture)
+	{
+		printf("Failed to load background texture\n");
 		success = false;
 	}
 	return success;

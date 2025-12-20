@@ -33,15 +33,9 @@ int main(void)
 				if (event_e.type == SDL_QUIT)
 					quit = true;
 			}
-			SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0x00, 0x00);
-			/* Clear screen */
+			SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 			SDL_RenderClear(renderer);
-			/* Render a filled and outline rectangle */
-			top_left_corner_viewport();
-			SDL_RenderCopy(renderer, texture, NULL, NULL);
-			top_right_corner_viewport();
-			SDL_RenderCopy(renderer, texture, NULL, NULL);
-			/* Update screen */
+
 			SDL_RenderPresent(renderer);
 		}
 		SDL_Log("Event queue is empty.");
@@ -136,6 +130,8 @@ void close_sdl(void)
 	SDL_DestroyWindow(window);
 	window = NULL;
 	renderer = NULL;
+	foo_texture = NULL;
+	bg_texture = NULL;
 	/* quit sdl subsytems */
 	IMG_Quit();
 	SDL_Quit();

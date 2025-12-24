@@ -41,7 +41,6 @@ bool load_media_texture(void)
 	/* Loading success flag */
 	bool success = true;
 	/* Load PNG texture */
-	printf("sizeof foo_texture - %zu\n", sizeof(foo_texture));
 	bool _foo = load_from_file(foo_texture, "10_color_keying/foo.PNG");
 	if (!_foo)
 	{

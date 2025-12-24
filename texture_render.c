@@ -40,16 +40,16 @@ bool load_media_texture(void)
 {
 	/* Loading success flag */
 	bool success = true;
-
 	/* Load PNG texture */
-	foo_texture = load_from_file("10_color_keying/foo.PNG");
-	if (!foo_texture)
+	printf("sizeof foo_texture - %zu\n", sizeof(foo_texture));
+	bool _foo = load_from_file(foo_texture, "10_color_keying/foo.PNG");
+	if (!_foo)
 	{
 		printf("Failed to load Foo' texture\n");
 		success = false;
 	}
-	bg_texture = load_from_file("10_color_keying/background.png");
-	if (!bg_texture)
+	bool bg = load_from_file(bg_texture, "10_color_keying/background.png");
+	if (!bg)
 	{
 		printf("Failed to load background texture\n");
 		success = false;

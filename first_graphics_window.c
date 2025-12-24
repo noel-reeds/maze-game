@@ -20,23 +20,32 @@ int main(void)
 	}
 	else
 	{
-		/* window to stay up */
-		bool quit = false;
-		/* event handler */
-		SDL_Event event_e;
-		/* while application is running */
-		while (!quit)
+		printf("SDL initializes..!\n");
+		if (!load_media_texture())
 		{
-			while (SDL_PollEvent(&event_e) != 0)
+			printf("Failed to load media!\n");
+		}
+		else
+		{
+			/* window to stay up */
+			bool quit = false;
+			/* event handler */
+			SDL_Event event_e;
+			/* while application is running */
+			while (!quit)
 			{
-				/* user requests quit */
-				if (event_e.type == SDL_QUIT)
-					quit = true;
+				while (SDL_PollEvent(&event_e) != 0)
+				{
+					/* user requests quit */
+					if (event_e.type == SDL_QUIT)
+						quit = true;
+				}
+				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+				SDL_RenderClear(renderer);
+				render(renderer, bg_texture, 0, 0);
+				render(renderer, foo_texture, 240, 190);
+				SDL_RenderPresent(renderer);
 			}
-			SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-			SDL_RenderClear(renderer);
-
-			SDL_RenderPresent(renderer);
 		}
 		SDL_Log("Event queue is empty.");
 		/* free mem and close SDL */
@@ -122,16 +131,16 @@ bool load_media_surface(void)
  */
 void close_sdl(void)
 {
-	/* deallocate surface */
-	SDL_DestroyTexture(texture);
-	texture = NULL;
-	/* destroy window */
+	/* Free structs and texture */
+	free_texture(foo_texture);
+	free_texture(bg_texture);
+
+	/* Destroy window */
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	window = NULL;
 	renderer = NULL;
-	foo_texture = NULL;
-	bg_texture = NULL;
+
 	/* quit sdl subsytems */
 	IMG_Quit();
 	SDL_Quit();

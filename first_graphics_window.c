@@ -137,6 +137,8 @@ void close_sdl(void)
 	/* Free structs and texture */
 	free_texture(foo_texture);
 	free_texture(bg_texture);
+	free(foo_texture);
+	free(bg_texture);
 
 	/* Destroy window */
 	SDL_DestroyRenderer(renderer);

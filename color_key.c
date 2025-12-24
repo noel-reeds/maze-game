@@ -1,14 +1,11 @@
 #include "main.h"
-SDL_Texture *foo_texture = NULL;
-SDL_Texture *bg_texture = NULL;
 
-SDL_Texture *m_texture = NULL;
-int width = 0;
-int height = 0;
+_Texture *foo_texture = NULL;
+_Texture *bg_texture = NULL;
 
-bool load_from_file(const char *str_path)
+bool load_from_file(_Texture *T, const char *str_path)
 {
-	free();
+	// free(&T);
 	SDL_Texture *new_texture = NULL;
 	SDL_Surface *surface = IMG_Load(str_path);
 	
@@ -18,36 +15,36 @@ bool load_from_file(const char *str_path)
 	else
 	{
 		SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(
-				loaded_surface->format, 0, 0xFF, 0xFF));
+				surface->format, 0, 0xFF, 0xFF));
 		new_texture = SDL_CreateTextureFromSurface(renderer, surface);
 		if (!new_texture)
 			printf("Unable to create texture from %s! SDL Error: %s\n",
 					str_path, SDL_GetError());
 		else
 		{
-			width = surface->w;
-			height = surface->h;
+			T->width = surface->w;
+			T->height = surface->h;
 		}
 		SDL_FreeSurface(surface);
 	}
-	m_texture = new_texture;
-	return (m_texture != NULL);
+	T->m_texture = new_texture;
+	return (T->m_texture != NULL);
 }
 
-void free(void)
+void free_texture(_Texture *T)
 {
-	if (!m_texture)
+	if (!T->m_texture)
 	{
-		SDL_DestroyTexture(m_texture);
-		m_texture = NULL;
-		width = 0;
-		height = 0;
+		SDL_DestroyTexture(T->m_texture);
+		T->m_texture = NULL;
+		T->width = 0;
+		T->height = 0;
 	}
 }
 
-void render(SDL_Texture *r_texture, int x, int y)
+void render(SDL_Renderer *R, _Texture *T, int x, int y)
 {
-	SDL_Rect render_quad(x, y, width, height);
-	SDL_RenderCopy(renderer, r_texture, NULL, &render_quad);
+	SDL_Rect render_quad = { x, y, T->width, T->height };
+	SDL_RenderCopy(R, T->m_texture, NULL, &render_quad);
 }
 

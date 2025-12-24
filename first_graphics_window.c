@@ -20,7 +20,10 @@ int main(void)
 	}
 	else
 	{
-		printf("SDL initializes..!\n");
+		/* Allocate memory for texture structs */
+		foo_texture = malloc(sizeof(_Texture));
+		bg_texture = malloc(sizeof(_Texture));
+
 		if (!load_media_texture())
 		{
 			printf("Failed to load media!\n");

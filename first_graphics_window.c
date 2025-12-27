@@ -20,6 +20,7 @@ int main(void)
 	}
 	else
 	{
+<<<<<<< HEAD
 		/* Allocate memory for texture structs */
 		ss_texture = malloc(sizeof(_Texture));
 		for (int m = 0; m < 4; m++)
@@ -46,6 +47,7 @@ int main(void)
 					if (event_e.type == SDL_QUIT)
 						quit = true;
 				}
+<<<<<<< HEAD
 				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(renderer);
 
@@ -149,14 +151,14 @@ bool load_media_surface(void)
  */
 void close_sdl(void)
 {
-	/* Free structs and texture */
-
-	/* Destroy window */
+	/* deallocate surface */
+	SDL_DestroyTexture(texture);
+	texture = NULL;
+	/* destroy window */
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	window = NULL;
 	renderer = NULL;
-
 	/* quit sdl subsytems */
 	IMG_Quit();
 	SDL_Quit();

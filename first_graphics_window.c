@@ -20,7 +20,6 @@ int main(void)
 	}
 	else
 	{
-<<<<<<< HEAD
 		/* Allocate memory for texture structs */
 		ss_texture = malloc(sizeof(_Texture));
 		for (int m = 0; m < 4; m++)
@@ -47,7 +46,6 @@ int main(void)
 					if (event_e.type == SDL_QUIT)
 						quit = true;
 				}
-<<<<<<< HEAD
 				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(renderer);
 

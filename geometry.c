@@ -54,7 +54,7 @@ void draw_blue_horizontal_line(void)
 void vertical_dotted_line(void)
 {
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0x00, 0xFF);
-	for(int i = 0; i < SCREEN_HEIGHT; i += 4)
+	for (int i = 0; i < SCREEN_HEIGHT; i += 4)
 	{
 		SDL_RenderDrawPoint(renderer, SCREEN_WIDTH / 2, i);
 	}

@@ -149,6 +149,12 @@ bool load_media_surface(void)
  */
 void close_sdl(void)
 {
+	/* Free textures and structs */
+	free_texture(ss_texture);
+	for (int m = 0; m < 4; m++)
+	{
+		free(sprite_clips[m]);
+	}
 	/* deallocate surface */
 	SDL_DestroyTexture(texture);
 	texture = NULL;

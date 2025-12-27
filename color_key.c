@@ -1,11 +1,10 @@
 #include "main.h"
 
-_Texture *foo_texture = NULL;
-_Texture *bg_texture = NULL;
+_Texture *ss_texture = NULL;
+SDL_Rect *sprite_clips[ 4 ];
 
 bool load_from_file(_Texture *T, const char *str_path)
 {
-	// free(&T);
 	SDL_Texture *new_texture = NULL;
 	SDL_Surface *surface = IMG_Load(str_path);
 	
@@ -42,9 +41,14 @@ void free_texture(_Texture *T)
 	}
 }
 
-void render(SDL_Renderer *R, _Texture *T, int x, int y)
+void render(SDL_Renderer *R, _Texture *T, int x, int y, SDL_Rect *clip)
 {
 	SDL_Rect render_quad = { x, y, T->width, T->height };
-	SDL_RenderCopy(R, T->m_texture, NULL, &render_quad);
+	if (clip)
+	{
+		render_quad.w = clip->w;
+		render_quad.h = clip->h;
+	}
+	SDL_RenderCopy(R, T->m_texture, clip, &render_quad);
 }
 

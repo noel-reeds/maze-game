@@ -21,8 +21,11 @@ int main(void)
 	else
 	{
 		/* Allocate memory for texture structs */
-		foo_texture = malloc(sizeof(_Texture));
-		bg_texture = malloc(sizeof(_Texture));
+		ss_texture = malloc(sizeof(_Texture));
+		for (int m = 0; m < 4; m++)
+		{
+			sprite_clips[ m ] = (SDL_Rect *)malloc(sizeof(SDL_Rect));
+		}
 
 		if (!load_media_texture())
 		{
@@ -45,8 +48,19 @@ int main(void)
 				}
 				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(renderer);
-				render(renderer, bg_texture, 0, 0);
-				render(renderer, foo_texture, 240, 190);
+
+				render(renderer, ss_texture, 0, 0, sprite_clips[ 0 ]);
+				render(renderer, ss_texture,
+						SCREEN_WIDTH - sprite_clips[ 1 ]->w, 0,
+						sprite_clips[ 1 ]);
+				render(renderer, ss_texture, 0,
+						SCREEN_HEIGHT - sprite_clips[ 2 ]->h,
+						sprite_clips[ 2 ]);
+				render(renderer, ss_texture,
+						SCREEN_WIDTH - sprite_clips[ 3 ]->h,
+						SCREEN_HEIGHT - sprite_clips[ 3 ]->w,
+						sprite_clips[ 3 ]);
+
 				SDL_RenderPresent(renderer);
 			}
 		}
@@ -135,10 +149,6 @@ bool load_media_surface(void)
 void close_sdl(void)
 {
 	/* Free structs and texture */
-	free_texture(foo_texture);
-	free_texture(bg_texture);
-	free(foo_texture);
-	free(bg_texture);
 
 	/* Destroy window */
 	SDL_DestroyRenderer(renderer);

@@ -26,7 +26,8 @@ int main(void)
 		{
 			sprite_clips[m] = (SDL_Rect *)malloc(sizeof(SDL_Rect));
 		}
-
+		mod_texture = malloc(sizeof(_Texture));
+		
 		if (!load_media_texture())
 		{
 			printf("Failed to load media!\n");
@@ -37,6 +38,11 @@ int main(void)
 			bool quit = false;
 			/* event handler */
 			SDL_Event event_e;
+			/* modulation components */
+			uint8_t r = 255;
+			uint8_t g = 255;
+			uint8_t b = 255;
+
 			/* while application is running */
 			while (!quit)
 			{
@@ -45,21 +51,41 @@ int main(void)
 					/* user requests quit */
 					if (event_e.type == SDL_QUIT)
 						quit = true;
+					else if (event_e.type == SDL_KEYDOWN)
+					{
+						switch (event_e.key.keysym.sym)
+						{
+							case SDLK_q:
+							r += 32;
+							break;
+
+							case SDLK_w:
+							g += 32;
+							break;
+
+							case SDLK_e:
+							b += 32;
+							break;
+
+							case SDLK_a:
+							r -= 32;
+							break;
+
+							case SDLK_s:
+							g -= 32;
+							break;
+
+							case SDLK_d:
+							b -= 32;
+							break;
+						}
+					}
 				}
 				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(renderer);
 
-				render(renderer, ss_texture, 0, 0, sprite_clips[0]);
-				render(renderer, ss_texture,
-						SCREEN_WIDTH - sprite_clips[1]->w, 0,
-						sprite_clips[1]);
-				render(renderer, ss_texture, 0,
-						SCREEN_HEIGHT - sprite_clips[2]->h,
-						sprite_clips[2]);
-				render(renderer, ss_texture,
-						SCREEN_WIDTH - sprite_clips[3]->h,
-						SCREEN_HEIGHT - sprite_clips[3]->w,
-						sprite_clips[3]);
+				set_color(r, g, b);
+				render(renderer, mod_texture, 0, 0);
 
 				SDL_RenderPresent(renderer);
 			}

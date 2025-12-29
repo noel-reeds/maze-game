@@ -41,34 +41,22 @@ bool load_media_texture(void)
 	/* Loading success flag */
 	bool success = true;
 	/* Load PNG texture */
-	bool _ss = load_from_file(ss_texture, "10_color_keying/dots.png");
+	bool _ss = load_from_file(mod_texture, "12_color_modulation/colors.png");
 
 	if (!_ss)
 	{
 		printf("Failed to load sprite sheet texture\n");
 		success = false;
 	}
-	else
-	{
-		sprite_clips[0]->x = 0;
-		sprite_clips[0]->y = 0;
-		sprite_clips[0]->w = 100;
-		sprite_clips[0]->h = 100;
-
-		sprite_clips[1]->x = 100;
-		sprite_clips[1]->y = 0;
-		sprite_clips[1]->w = 100;
-		sprite_clips[1]->h = 100;
-
-		sprite_clips[2]->x = 0;
-		sprite_clips[2]->y = 100;
-		sprite_clips[2]->w = 100;
-		sprite_clips[2]->h = 100;
-
-		sprite_clips[3]->x = 100;
-		sprite_clips[3]->y = 100;
-		sprite_clips[3]->w = 100;
-		sprite_clips[3]->h = 100;
-	}
 	return (success);
+}
+
+/**
+ * set_color - modulate color
+ *
+ *Return: void.
+ */
+void set_color(uint8_t red, uint8_t green, uint8_t blue)
+{
+	SDL_SetTextureColorMod(mod_texture->m_texture, red, green, blue);
 }

@@ -98,6 +98,8 @@ void free_texture(_Texture *T);
 void render(SDL_Renderer *R, _Texture *T, int x, int y);
 void set_color(uint8_t red, uint8_t green, uint8_t blue);
 void set_color(uint8_t red, uint8_t green, uint8_t blue);
+void set_blend_mode(SDL_Texture *Texture, SDL_BlendMode blending);
+void set_alpha(uint8_t alpha);
 
 
 #endif

@@ -1,4 +1,6 @@
 #include "main.h"
+_Texture *bg_texture = NULL;
+
 /**
  * load_texture - loads image texture
  *
@@ -41,11 +43,16 @@ bool load_media_texture(void)
 	/* Loading success flag */
 	bool success = true;
 	/* Load PNG texture */
-	bool _ss = load_from_file(mod_texture, "12_color_modulation/colors.png");
-
-	if (!_ss)
+	if (!load_from_file(mod_texture, "13_alpha_blending/fadeout.png"))
 	{
-		printf("Failed to load sprite sheet texture\n");
+		printf("Failed to load front texture\n");
+		success = false;
+	}
+	else
+		set_blend_mode(mod_texture->m_texture, SDL_BLENDMODE_BLEND);
+	if (!load_from_file(bg_texture, "13_alpha_blending/fadein.png"))
+	{
+		printf("Failed to load background texture\n");
 		success = false;
 	}
 	return (success);

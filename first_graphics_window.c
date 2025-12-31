@@ -21,11 +21,7 @@ int main(void)
 	else
 	{
 		/* Allocate memory for texture structs */
-		ss_texture = malloc(sizeof(_Texture));
-		for (int m = 0; m < 4; m++)
-		{
-			sprite_clips[m] = (SDL_Rect *)malloc(sizeof(SDL_Rect));
-		}
+		bg_texture = malloc(sizeof(_Texture));
 		mod_texture = malloc(sizeof(_Texture));
 		
 		if (!load_media_texture())
@@ -39,9 +35,7 @@ int main(void)
 			/* event handler */
 			SDL_Event event_e;
 			/* modulation components */
-			uint8_t r = 255;
-			uint8_t g = 255;
-			uint8_t b = 255;
+			uint8_t a = 255;
 
 			/* while application is running */
 			while (!quit)
@@ -53,38 +47,28 @@ int main(void)
 						quit = true;
 					else if (event_e.type == SDL_KEYDOWN)
 					{
-						switch (event_e.key.keysym.sym)
+						if (event_e.key.keysym.sym == SDLK_w)
 						{
-							case SDLK_q:
-							r += 32;
-							break;
-
-							case SDLK_w:
-							g += 32;
-							break;
-
-							case SDLK_e:
-							b += 32;
-							break;
-
-							case SDLK_a:
-							r -= 32;
-							break;
-
-							case SDLK_s:
-							g -= 32;
-							break;
-
-							case SDLK_d:
-							b -= 32;
-							break;
+							if (a + 32 > 255)
+								a = 255;
+							else
+								a += 32;
+						}
+						else if (event_e.key.keysym.sym == SDLK_s)
+						{
+							if (a - 32 < 0)
+								a = 0;
+							else
+								a -= 32;
 						}
 					}
 				}
 				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(renderer);
 
-				set_color(r, g, b);
+				render(renderer, bg_texture, 0, 0);
+
+				set_alpha(a);
 				render(renderer, mod_texture, 0, 0);
 
 				SDL_RenderPresent(renderer);

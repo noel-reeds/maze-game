@@ -13,6 +13,7 @@
 #define PLAYER_SIZE 3
 #define PLAYER_SPEED 5
 #define MAX_DEPTH 512
+#define WALKING_ANIMATION_FRAMES 4
 
 #include <stdio.h>
 #include <SDL.h>
@@ -65,10 +66,11 @@ extern SDL_Renderer *renderer;
 extern SDL_Texture *texture;
 extern _Texture *foo_texture;
 extern _Texture *bg_texture;
-extern SDL_Rect *sprite_clips[ 4 ];
-extern _Texture *ss_texture;
-extern _Texture *mod_texture;
 
+extern SDL_Rect *sprite_clips[ WALKING_ANIMATION_FRAMES ];
+extern _Texture *ss_texture;
+
+extern _Texture *mod_texture;
 extern int map[MAP_WIDTH][MAP_LENGTH];
 
 int init_instance(SDL_Instance *);
@@ -95,11 +97,10 @@ void top_right_corner_viewport(void);
 void bottom_centre_viewport(void);
 bool load_from_file(_Texture *T, const char *str_path);
 void free_texture(_Texture *T);
-void render(SDL_Renderer *R, _Texture *T, int x, int y);
 void set_color(uint8_t red, uint8_t green, uint8_t blue);
 void set_color(uint8_t red, uint8_t green, uint8_t blue);
 void set_blend_mode(SDL_Texture *Texture, SDL_BlendMode blending);
 void set_alpha(uint8_t alpha);
-
+void render(SDL_Renderer *R, _Texture *T, int x, int y, SDL_Rect *_clip);
 
 #endif

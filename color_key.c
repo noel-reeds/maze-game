@@ -1,7 +1,7 @@
 #include "main.h"
 
 _Texture *ss_texture = NULL;
-SDL_Rect *sprite_clips[4];
+SDL_Rect *sprite_clips[ WALKING_ANIMATION_FRAMES ];
 _Texture *mod_texture;
 /**
  * load_from_file - loads image texture.
@@ -50,9 +50,15 @@ void free_texture(_Texture *T)
 	}
 }
 
-void render(SDL_Renderer *R, _Texture *T, int x, int y)
+void render(SDL_Renderer *R, _Texture *T, int x, int y, SDL_Rect *_clip)
 {
 	SDL_Rect render_quad = { x, y, T->width, T->height };
-	SDL_RenderCopy(R, T->m_texture, NULL, &render_quad);
+	if (!_clip)
+	{
+		SDL_RenderCopy(R, T->m_texture, NULL, &render_quad);
+	}
+	else
+		SDL_RenderCopy(R, T->m_texture, _clip, &render_quad);
+
 }
 

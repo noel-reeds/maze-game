@@ -43,17 +43,32 @@ bool load_media_texture(void)
 	/* Loading success flag */
 	bool success = true;
 	/* Load PNG texture */
-	if (!load_from_file(mod_texture, "13_alpha_blending/fadeout.png"))
+	if (!load_from_file(ss_texture, "14_animated_sprites_and_vsync/foo.png"))
 	{
-		printf("Failed to load front texture\n");
+		printf("Failed to load walking animation texture\n");
 		success = false;
 	}
 	else
-		set_blend_mode(mod_texture->m_texture, SDL_BLENDMODE_BLEND);
-	if (!load_from_file(bg_texture, "13_alpha_blending/fadein.png"))
 	{
-		printf("Failed to load background texture\n");
-		success = false;
+		sprite_clips[0]->x = 0;
+		sprite_clips[0]->y = 0;
+		sprite_clips[0]->w = 64;
+		sprite_clips[0]->h = 205;
+
+		sprite_clips[1]->x = 64;
+		sprite_clips[1]->y = 0;
+		sprite_clips[1]->w = 64;
+		sprite_clips[1]->h = 205;
+
+		sprite_clips[2]->x = 128;
+		sprite_clips[2]->y = 0;
+		sprite_clips[2]->w = 64;
+		sprite_clips[2]->h = 205;
+
+		sprite_clips[3]->x = 192;
+		sprite_clips[3]->y = 0;
+		sprite_clips[3]->w = 64;
+		sprite_clips[3]->h = 205;
 	}
 	return (success);
 }

@@ -1,5 +1,4 @@
 #include "main.h"
-
 SDL_Surface *KeyPressSurfaces[ KEY_PRESS_SURFACE_TOTAL ];
 SDL_Surface *screenSurface = NULL;
 SDL_Window *window = NULL;
@@ -20,9 +19,13 @@ int main(void)
 	}
 	else
 	{
+
 		/* Allocate memory for texture structs */
-		bg_texture = malloc(sizeof(_Texture));
-		mod_texture = malloc(sizeof(_Texture));
+		ss_texture = malloc(sizeof(_Texture));
+		for (int m = 0; m < WALKING_ANIMATION_FRAMES; m++)
+		{
+			sprite_clips[m] = (SDL_Rect *)malloc(sizeof(SDL_Rect));
+		}
 		
 		if (!load_media_texture())
 		{
@@ -34,9 +37,8 @@ int main(void)
 			bool quit = false;
 			/* event handler */
 			SDL_Event event_e;
-			/* modulation components */
-			uint8_t a = 255;
-
+			/* current animation frame */
+			int frame = 0;
 			/* while application is running */
 			while (!quit)
 			{
@@ -45,33 +47,19 @@ int main(void)
 					/* user requests quit */
 					if (event_e.type == SDL_QUIT)
 						quit = true;
-					else if (event_e.type == SDL_KEYDOWN)
-					{
-						if (event_e.key.keysym.sym == SDLK_w)
-						{
-							if (a + 32 > 255)
-								a = 255;
-							else
-								a += 32;
-						}
-						else if (event_e.key.keysym.sym == SDLK_s)
-						{
-							if (a - 32 < 0)
-								a = 0;
-							else
-								a -= 32;
-						}
-					}
 				}
 				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(renderer);
 
-				render(renderer, bg_texture, 0, 0);
-
-				set_alpha(a);
-				render(renderer, mod_texture, 0, 0);
-
+				SDL_Rect *current_clip = sprite_clips[frame / 4];
+				render(renderer, ss_texture,
+						(SCREEN_WIDTH - current_clip->w) / 2,
+						(SCREEN_HEIGHT - current_clip->h) / 2,
+						current_clip);
 				SDL_RenderPresent(renderer);
+				frame++;
+				if (frame / 4 >= WALKING_ANIMATION_FRAMES)
+					frame = 0;
 			}
 		}
 		SDL_Log("Event queue is empty.");
@@ -114,7 +102,7 @@ bool initialize_sdl(void)
 			/* create a renderer for the window */
 			renderer = SDL_CreateRenderer(
 					window, -1,
-					SDL_RENDERER_ACCELERATED);
+					SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 			if (!renderer)
 			{
 				printf("Renderer could not be created! "

@@ -48,7 +48,7 @@ int main(void)
 					if (event_e.type == SDL_QUIT)
 						quit = true;
 				}
-				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+				SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(renderer);
 
 				SDL_Rect *current_clip = sprite_clips[frame / 4];
@@ -57,7 +57,7 @@ int main(void)
 						(SCREEN_HEIGHT - current_clip->h) / 2,
 						current_clip);
 				SDL_RenderPresent(renderer);
-				frame++;
+				++frame;
 				if (frame / 4 >= WALKING_ANIMATION_FRAMES)
 					frame = 0;
 			}

@@ -101,6 +101,6 @@ void set_color(uint8_t red, uint8_t green, uint8_t blue);
 void set_color(uint8_t red, uint8_t green, uint8_t blue);
 void set_blend_mode(SDL_Texture *Texture, SDL_BlendMode blending);
 void set_alpha(uint8_t alpha);
-void render(SDL_Renderer *R, _Texture *T, int x, int y, SDL_Rect *_clip);
+void render(SDL_Renderer *R, _Texture *T, int x, int y, SDL_Rect *_clip, double angle, SDL_Point *center, SDL_RendererFlip flip);
 
 #endif

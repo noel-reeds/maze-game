@@ -50,15 +50,17 @@ void free_texture(_Texture *T)
 	}
 }
 
-void render(SDL_Renderer *R, _Texture *T, int x, int y, SDL_Rect *_clip)
+void render(SDL_Renderer *R, _Texture *T,
+				int x, int y, SDL_Rect *clip, double angle,
+				SDL_Point *center, SDL_RendererFlip flip)
 {
-	SDL_Rect render_quad = { x, y, T->width, T->height };
-	if (!_clip)
+	SDL_Rect rect = {x, y, T->width, T->height};
+
+	if (clip)
 	{
-		SDL_RenderCopy(R, T->m_texture, NULL, &render_quad);
+		rect.w = clip->w;
+		rect.h = clip->h;
 	}
-	else
-		SDL_RenderCopy(R, T->m_texture, _clip, &render_quad);
-
+	SDL_RenderCopyEx(R, T->m_texture, clip, &rect,
+			angle, center, flip);
 }
-

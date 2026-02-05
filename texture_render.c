@@ -43,32 +43,10 @@ bool load_media_texture(void)
 	/* Loading success flag */
 	bool success = true;
 	/* Load PNG texture */
-	if (!load_from_file(ss_texture, "14_animated_sprites_and_vsync/foo.png"))
+	if (!load_from_file(ss_texture, "15_rotation_and_flipping/arrow.png"))
 	{
 		printf("Failed to load walking animation texture\n");
 		success = false;
-	}
-	else
-	{
-		sprite_clips[0]->x = 0;
-		sprite_clips[0]->y = 0;
-		sprite_clips[0]->w = 64;
-		sprite_clips[0]->h = 205;
-
-		sprite_clips[1]->x = 64;
-		sprite_clips[1]->y = 0;
-		sprite_clips[1]->w = 64;
-		sprite_clips[1]->h = 205;
-
-		sprite_clips[2]->x = 128;
-		sprite_clips[2]->y = 0;
-		sprite_clips[2]->w = 64;
-		sprite_clips[2]->h = 205;
-
-		sprite_clips[3]->x = 192;
-		sprite_clips[3]->y = 0;
-		sprite_clips[3]->w = 64;
-		sprite_clips[3]->h = 205;
 	}
 	return (success);
 }

@@ -22,11 +22,7 @@ int main(void)
 
 		/* Allocate memory for texture structs */
 		ss_texture = malloc(sizeof(_Texture));
-		for (int m = 0; m < WALKING_ANIMATION_FRAMES; m++)
-		{
-			sprite_clips[m] = (SDL_Rect *)malloc(sizeof(SDL_Rect));
-		}
-		
+	
 		if (!load_media_texture())
 		{
 			printf("Failed to load media!\n");
@@ -37,8 +33,10 @@ int main(void)
 			bool quit = false;
 			/* event handler */
 			SDL_Event event_e;
-			/* current animation frame */
-			int frame = 0;
+			/* Angle of rotation */
+			double degrees = 0;
+			/* Flip type*/
+			SDL_RendererFlip flip_type = SDL_FLIP_NONE;
 			/* while application is running */
 			while (!quit)
 			{
@@ -47,19 +45,38 @@ int main(void)
 					/* user requests quit */
 					if (event_e.type == SDL_QUIT)
 						quit = true;
+					else if (event_e.type == SDL_KEYDOWN)
+						switch (event_e.key.keysym.sym)
+						{
+							case SDLK_a:
+							degrees -= 60;
+							break;
+
+							case SDLK_d:
+							degrees += 60;
+							break;
+
+							case SDLK_q:
+							flip_type = SDL_FLIP_HORIZONTAL;
+							break;
+
+							case SDLK_e:
+							flip_type = SDL_FLIP_VERTICAL;
+							break;
+
+							case SDLK_w:
+							flip_type = SDL_FLIP_NONE;
+							break;
+						}
 				}
-				SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0xFF, 0xFF);
+				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(renderer);
 
-				SDL_Rect *current_clip = sprite_clips[frame / 4];
 				render(renderer, ss_texture,
-						(SCREEN_WIDTH - current_clip->w) / 2,
-						(SCREEN_HEIGHT - current_clip->h) / 2,
-						current_clip);
+						(SCREEN_WIDTH - ss_texture->width) / 2,
+						(SCREEN_HEIGHT - ss_texture->height) / 2,
+						NULL, degrees, NULL, flip_type);
 				SDL_RenderPresent(renderer);
-				++frame;
-				if (frame / 4 >= WALKING_ANIMATION_FRAMES)
-					frame = 0;
 			}
 		}
 		SDL_Log("Event queue is empty.");

@@ -23,7 +23,7 @@ int main(void)
 		/* Allocate memory for texture structs */
 		ss_texture = malloc(sizeof(_Texture));
 	
-		if (!load_media_texture())
+		if (!load_media_surface())
 		{
 			printf("Failed to load media!\n");
 		}
@@ -31,12 +31,11 @@ int main(void)
 		{
 			/* window to stay up */
 			bool quit = false;
+			/* Flip type*/
+			double degrees = 0;
+			SDL_RendererFlip flip_type = SDL_FLIP_NONE;
 			/* event handler */
 			SDL_Event event_e;
-			/* Angle of rotation */
-			double degrees = 0;
-			/* Flip type*/
-			SDL_RendererFlip flip_type = SDL_FLIP_NONE;
 			/* while application is running */
 			while (!quit)
 			{
@@ -45,33 +44,9 @@ int main(void)
 					/* user requests quit */
 					if (event_e.type == SDL_QUIT)
 						quit = true;
-					else if (event_e.type == SDL_KEYDOWN)
-						switch (event_e.key.keysym.sym)
-						{
-							case SDLK_a:
-							degrees -= 60;
-							break;
-
-							case SDLK_d:
-							degrees += 60;
-							break;
-
-							case SDLK_q:
-							flip_type = SDL_FLIP_HORIZONTAL;
-							break;
-
-							case SDLK_e:
-							flip_type = SDL_FLIP_VERTICAL;
-							break;
-
-							case SDLK_w:
-							flip_type = SDL_FLIP_NONE;
-							break;
-						}
 				}
 				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(renderer);
-
 				render(renderer, ss_texture,
 						(SCREEN_WIDTH - ss_texture->width) / 2,
 						(SCREEN_HEIGHT - ss_texture->height) / 2,
@@ -138,6 +113,11 @@ bool initialize_sdl(void)
 							"SDL_image Error: %s\n", IMG_GetError());
 					success = false;
 				}
+				if (TTF_Init() == -1)
+				{
+					printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+					success = false;
+				}
 			}
 		}
 	}
@@ -153,7 +133,25 @@ bool load_media_surface(void)
 {
 	/* loading success flag */
 	bool success = true;
+	font = TTF_OpenFont("16_true_type_fonts/lazy.ttf", 20);
 
+	if (!font)
+	{
+		printf("Failed to load lazy font! SDL_ttf Error: %s\n",
+				 TTF_GetError());
+		success = false;
+	}
+	else
+	{
+		SDL_Color text_color;
+		text_color = (SDL_Color){ 0, 0, 0, 0 };
+		bool lfrt = load_from_rendered_text("Noel Reeds", text_color);
+		if (!lfrt)
+		{
+			printf("Failed to render text texture!\n");
+			success = false;
+		}
+	}
 	return (success);
 }
 
@@ -178,7 +176,11 @@ void close_sdl(void)
 	SDL_DestroyWindow(window);
 	window = NULL;
 	renderer = NULL;
+
+	TTF_CloseFont(font);
+	font = NULL;
 	/* quit sdl subsytems */
+	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
 }

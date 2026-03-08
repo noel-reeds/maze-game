@@ -5,6 +5,9 @@
 #define SCREEN_WIDTH 600
 #define SCREEN_HEIGHT 600
 
+#define BUTTON_WIDTH 300
+#define BUTTON_HEIGHT 200
+#define TOTAL_BUTTONS 4
 #define MAP_WIDTH 9
 #define MAP_LENGTH 12
 #define CELL_SIZE 16
@@ -59,7 +62,19 @@ enum KeyPressSurfaces
 	KEY_PRESS_SURFACE_TOTAL
 };
 
+/* enum for buttons */
+enum ButtonSprite
+{
+	BS_MOUSE_OUT = 0;
+	BS_MOUSE_OVER_MOTION = 1;
+	BS_MOUSE_DOWN = 2;
+	BS_MOUSE_UP = 3;
+	BS_TOTAL = 4;
+};
+
 /* game window initializations */
+extern ButtonSprite current_sprite;
+extern ButtonSprite buttons[ TOTAL_BUTTONS ];
 extern SDL_Surface *screenSurface;
 extern SDL_Window *window;
 extern SDL_Surface *currentSurface;
@@ -69,8 +84,8 @@ extern TTF_Font *font;
 extern SDL_Texture *texture;
 extern _Texture *foo_texture;
 extern _Texture *bg_texture;
-
-extern SDL_Rect *sprite_clips[ WALKING_ANIMATION_FRAMES ];
+extern SDL_Point pos;
+extern SDL_Rect *sprite_clips[ BS_TOTAL ];
 extern _Texture *ss_texture;
 
 extern _Texture *mod_texture;
@@ -85,6 +100,8 @@ int collision_detection(int x, int y);
 void render_3d_walls(SDL_Instance *instance, Player *player, Light *lights, int num_lights);
 float calculate_light_intensity(float x, float y, Light *lights, int num_lights);
 
+void initialize_button(void);
+void set_button_position(int x, int y);
 bool initialize_sdl(void);
 bool load_media_surface(void);
 void close_sdl(void);
@@ -106,4 +123,8 @@ void set_blend_mode(SDL_Texture *Texture, SDL_BlendMode blending);
 void set_alpha(uint8_t alpha);
 void render(SDL_Renderer *R, _Texture *T, int x, int y, SDL_Rect *_clip, double angle, SDL_Point *center, SDL_RendererFlip flip);
 bool load_from_rendered_text(char const *texture_text, SDL_Color text_color);
+void initialize_button(void);
+void set_button_position(int x, int y);
+void handle_event(SDL_Event *event);
+
 #endif

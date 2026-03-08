@@ -22,6 +22,10 @@ int main(void)
 
 		/* Allocate memory for texture structs */
 		ss_texture = malloc(sizeof(_Texture));
+		for (int m = 0; m < BS_TOTAL; m++)
+		{
+			sprite_clips[m] = malloc(sizeof(SDL_Rect));
+		}
 	
 		if (!load_media_surface())
 		{
@@ -44,13 +48,19 @@ int main(void)
 					/* user requests quit */
 					if (event_e.type == SDL_QUIT)
 						quit = true;
+					/* handle buttons events */
+					for (int y = 0; y < TOTAL_BUTTONS; y++)
+					{
+						buttons[y].handle_event(&event_e)
+					}
 				}
 				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(renderer);
-				render(renderer, ss_texture,
-						(SCREEN_WIDTH - ss_texture->width) / 2,
-						(SCREEN_HEIGHT - ss_texture->height) / 2,
-						NULL, degrees, NULL, flip_type);
+				/* render buttons */
+				for (int x = 0; x < TOTAL_BUTTONS; x++)
+				{
+					buttons[x].button_render();
+				}
 				SDL_RenderPresent(renderer);
 			}
 		}
@@ -115,7 +125,8 @@ bool initialize_sdl(void)
 				}
 				if (TTF_Init() == -1)
 				{
-					printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+					printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n",
+							TTF_GetError());
 					success = false;
 				}
 			}
@@ -145,8 +156,8 @@ bool load_media_surface(void)
 	{
 		SDL_Color text_color;
 		text_color = (SDL_Color){ 0, 0, 0, 0 };
-		bool lfrt = load_from_rendered_text("Noel Reeds", text_color);
-		if (!lfrt)
+		bool RF = load_from_rendered_text("Noel Reeds", text_color);
+		if (!RF)
 		{
 			printf("Failed to render text texture!\n");
 			success = false;

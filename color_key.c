@@ -82,8 +82,8 @@ bool load_from_rendered_text(char const *texture_text, SDL_Color text_color)
 									renderer, text_surface);
 		if (ss_texture->m_texture == NULL)
 		{
-			printf("Unable to create texture from rendered text! SDL_GetError: 
-					%s\n", SDL_GetError());
+			printf("Unable to create texture from rendered\t"
+					"text! SDL_GetError: %s\n", SDL_GetError());
 		}
 		else
 		{

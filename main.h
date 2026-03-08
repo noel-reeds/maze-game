@@ -65,16 +65,25 @@ enum KeyPressSurfaces
 /* enum for buttons */
 enum ButtonSprite
 {
-	BS_MOUSE_OUT = 0;
-	BS_MOUSE_OVER_MOTION = 1;
-	BS_MOUSE_DOWN = 2;
-	BS_MOUSE_UP = 3;
-	BS_TOTAL = 4;
+	BS_MOUSE_OUT = 0,
+	BS_MOUSE_OVER_MOTION = 1,
+	BS_MOUSE_DOWN = 2,
+	BS_MOUSE_UP = 3,
+	BS_TOTAL = 4
 };
 
+typedef struct button_handler
+{
+	SDL_Surface *cs;
+	void button_render(void);
+	void *handle_event(SDL_Event *event);
+	void *set_button_position(int x, int y);
+	void initialize_button(void);
+} bt_handler;
+
 /* game window initializations */
-extern ButtonSprite current_sprite;
-extern ButtonSprite buttons[ TOTAL_BUTTONS ];
+extern SDL_Surface *current_sprite;
+extern SDL_Surface *ButtonSprite[ BS_TOTAL ];
 extern SDL_Surface *screenSurface;
 extern SDL_Window *window;
 extern SDL_Surface *currentSurface;

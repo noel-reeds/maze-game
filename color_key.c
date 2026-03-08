@@ -1,7 +1,7 @@
 #include "main.h"
 TTF_Font *font = NULL;
 _Texture *ss_texture = NULL;
-SDL_Rect *sprite_clips[ WALKING_ANIMATION_FRAMES ];
+SDL_Rect *sprite_clips[ BS_TOTAL ];
 _Texture *mod_texture;
 /**
  * load_from_file - loads image texture.
@@ -65,6 +65,7 @@ void render(SDL_Renderer *R, _Texture *T,
 			angle, center, flip);
 }
 
+#if defined (SDL_TTF_MAJOR_VERSION)
 bool load_from_rendered_text(char const *texture_text, SDL_Color text_color)
 {
 	free_texture(ss_texture);
@@ -82,7 +83,8 @@ bool load_from_rendered_text(char const *texture_text, SDL_Color text_color)
 									renderer, text_surface);
 		if (ss_texture->m_texture == NULL)
 		{
-			printf("Unable to create texture from rendered text! SDL_GetError: %s\n", SDL_GetError());
+			printf("Unable to create texture from rendered text! SDL_GetError: 
+					%s\n", SDL_GetError());
 		}
 		else
 		{
@@ -93,3 +95,4 @@ bool load_from_rendered_text(char const *texture_text, SDL_Color text_color)
 	}
 	return ss_texture->m_texture != NULL;
 }
+#endif

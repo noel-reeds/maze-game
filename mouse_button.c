@@ -1,6 +1,6 @@
 #include "main.h"
-ButtonSprite current_sprite;
-ButtonSprite buttons[ TOTAL_BUTTONS ];
+SDL_Surface *current_sprite;
+SDL_Surface *ButtonSprite[ BS_TOTAL ];
 SDL_Point pos;
 
 void initialize_button(void)
@@ -18,7 +18,7 @@ void set_button_position(int x, int y)
 
 void handle_event(SDL_Event *event)
 {
-	if (event->type == SDL_MOUSEMOTION || event->type == SDL_MOUSEBUTTONDOWN ||			event->type == SDL_MOUSEBUTTONUP)
+	if (event->type == SDL_MOUSEMOTION || event->type == SDL_MOUSEBUTTONDOWN ||	event->type == SDL_MOUSEBUTTONUP)
 	{
 		int x, y;
 		SDL_GetMouseState(&x, &y);
@@ -53,6 +53,5 @@ void handle_event(SDL_Event *event)
 
 void button_render(void)
 {
-	render(renderer, ss_texture, pos.x, pos.y,
-			&sprite_clips[current_sprite], NULL, NULL, SDL_FLIP_NONE);
+	render(renderer, ss_texture, pos.x, pos.y, sprite_clips[current_sprite], NULL, NULL, SDL_FLIP_NONE);
 }

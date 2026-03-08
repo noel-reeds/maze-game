@@ -35,9 +35,6 @@ int main(void)
 		{
 			/* window to stay up */
 			bool quit = false;
-			/* Flip type*/
-			double degrees = 0;
-			SDL_RendererFlip flip_type = SDL_FLIP_NONE;
 			/* event handler */
 			SDL_Event event_e;
 			/* while application is running */
@@ -51,7 +48,7 @@ int main(void)
 					/* handle buttons events */
 					for (int y = 0; y < TOTAL_BUTTONS; y++)
 					{
-						buttons[y].handle_event(&event_e)
+						ButtonSprite[y].handle_event(&event_e);
 					}
 				}
 				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -59,7 +56,7 @@ int main(void)
 				/* render buttons */
 				for (int x = 0; x < TOTAL_BUTTONS; x++)
 				{
-					buttons[x].button_render();
+					ButtonSprite[x].button_render();
 				}
 				SDL_RenderPresent(renderer);
 			}
@@ -156,13 +153,13 @@ bool load_media_surface(void)
 		/* set sprites */
 		for (int i = 0; i < BS_TOTAL; i++)
 		{
-			sprite_clips[i].x = 0;
-			sprite_clips[i].y = i * 200;
-			sprite_clips[i].w = BUTTON_WIDTH;
-			sprite_clips[i].h = BUTTON_HEIGHT;
+			sprite_clips[i]->x = 0;
+			sprite_clips[i]->y = i * 200;
+			sprite_clips[i]->w = BUTTON_WIDTH;
+			sprite_clips[i]->h = BUTTON_HEIGHT;
 		}
 		/* set buttons in corners */
-		buttons[0].set_position(0, 0)
+		buttons[0].set_position(0, 0);
 		buttons[1].set_position(SCREEN_WIDTH - BUTTON_WIDTH, 0);
 		buttons[2].set_position(0, SCREEN_HEIGHT - BUTTON_HEIGHT);
 		buttons[3].set_position(SCREEN_WIDTH - BUTTON_WIDTH,

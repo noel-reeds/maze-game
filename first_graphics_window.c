@@ -144,24 +144,29 @@ bool load_media_surface(void)
 {
 	/* loading success flag */
 	bool success = true;
-	font = TTF_OpenFont("16_true_type_fonts/lazy.ttf", 20);
 
-	if (!font)
+	if (!load_from_file(ss_texture, "17_mouse_events/button.png"))
 	{
-		printf("Failed to load lazy font! SDL_ttf Error: %s\n",
-				 TTF_GetError());
+		printf("Failed to load button sprite texture!\n");
 		success = false;
 	}
+
 	else
 	{
-		SDL_Color text_color;
-		text_color = (SDL_Color){ 0, 0, 0, 0 };
-		bool RF = load_from_rendered_text("Noel Reeds", text_color);
-		if (!RF)
+		/* set sprites */
+		for (int i = 0; i < BS_TOTAL; i++)
 		{
-			printf("Failed to render text texture!\n");
-			success = false;
+			sprite_clips[i].x = 0;
+			sprite_clips[i].y = i * 200;
+			sprite_clips[i].w = BUTTON_WIDTH;
+			sprite_clips[i].h = BUTTON_HEIGHT;
 		}
+		/* set buttons in corners */
+		buttons[0].set_position(0, 0)
+		buttons[1].set_position(SCREEN_WIDTH - BUTTON_WIDTH, 0);
+		buttons[2].set_position(0, SCREEN_HEIGHT - BUTTON_HEIGHT);
+		buttons[3].set_position(SCREEN_WIDTH - BUTTON_WIDTH,
+								SCREEN_HEIGHT - BUTTON_HEIGHT);
 	}
 	return (success);
 }

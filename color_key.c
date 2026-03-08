@@ -65,7 +65,6 @@ void render(SDL_Renderer *R, _Texture *T,
 			angle, center, flip);
 }
 
-#if defined (SDL_TTF_MAJOR_VERSION)
 bool load_from_rendered_text(char const *texture_text, SDL_Color text_color)
 {
 	free_texture(ss_texture);
@@ -95,4 +94,3 @@ bool load_from_rendered_text(char const *texture_text, SDL_Color text_color)
 	}
 	return ss_texture->m_texture != NULL;
 }
-#endif

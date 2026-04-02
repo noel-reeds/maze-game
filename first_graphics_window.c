@@ -1,4 +1,5 @@
 #include "main.h"
+btt_e_handlr buttons[ TOTAL_BUTTONS ];
 SDL_Surface *KeyPressSurfaces[ KEY_PRESS_SURFACE_TOTAL ];
 SDL_Surface *screenSurface = NULL;
 SDL_Window *window = NULL;
@@ -48,7 +49,7 @@ int main(void)
 					/* handle buttons events */
 					for (int y = 0; y < TOTAL_BUTTONS; y++)
 					{
-						ButtonSprite[y]->handle_event(&event_e);
+						handle_event(&buttons[y], &event_e);
 					}
 				}
 				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -56,7 +57,7 @@ int main(void)
 				/* render buttons */
 				for (int x = 0; x < TOTAL_BUTTONS; x++)
 				{
-					ButtonSprite[x]->button_render();
+					button_render(&buttons[x]);
 				}
 				SDL_RenderPresent(renderer);
 			}
@@ -159,10 +160,10 @@ bool load_media_surface(void)
 			sprite_clips[i]->h = BUTTON_HEIGHT;
 		}
 		/* set buttons in corners */
-		buttons[0].set_position(0, 0);
-		buttons[1].set_position(SCREEN_WIDTH - BUTTON_WIDTH, 0);
-		buttons[2].set_position(0, SCREEN_HEIGHT - BUTTON_HEIGHT);
-		buttons[3].set_position(SCREEN_WIDTH - BUTTON_WIDTH,
+		set_button_position(&buttons[0], 0, 0);
+		set_button_position(&buttons[1], SCREEN_WIDTH - BUTTON_WIDTH, 0);
+		set_button_position(&buttons[2], 0, SCREEN_HEIGHT - BUTTON_HEIGHT);
+		set_button_position(&buttons[3], SCREEN_WIDTH - BUTTON_WIDTH,
 								SCREEN_HEIGHT - BUTTON_HEIGHT);
 	}
 	return (success);

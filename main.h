@@ -71,15 +71,7 @@ enum ButtonSprite
 	BS_MOUSE_UP = 3,
 	BS_TOTAL = 4
 };
-
-typedef struct button_event_handler
-{
-	enum ButtonSprite current_sprite;
-	SDL_Point pos;
-} btt_e_handlr;
-
 /* game window initializations */
-extern btt_e_handlr buttons[ TOTAL_BUTTONS ];
 extern SDL_Rect *sprite_clips[ BS_TOTAL ];
 extern SDL_Surface *screenSurface;
 extern SDL_Window *window;
@@ -127,10 +119,5 @@ void set_blend_mode(SDL_Texture *Texture, SDL_BlendMode blending);
 void set_alpha(uint8_t alpha);
 void render(SDL_Renderer *R, _Texture *T, int x, int y, SDL_Rect *_clip, double angle, SDL_Point *center, SDL_RendererFlip flip);
 bool load_from_rendered_text(char const *texture_text, SDL_Color text_color);
-
-void button_render(btt_e_handlr *self);
-void initialize_button(btt_e_handlr *self);
-void set_button_position(btt_e_handlr *self, int x, int y);
-void handle_event(btt_e_handlr *self, SDL_Event *event);
 
 #endif

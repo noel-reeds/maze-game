@@ -43,7 +43,7 @@ bool load_media_texture(void)
 	/* Loading success flag */
 	bool success = true;
 	/* Load PNG texture */
-	if (!load_from_file(ss_texture, "15_rotation_and_flipping/arrow.png"))
+	if (!load_from_file(ss_texture, "foo/15_rotation_and_flipping/arrow.png"))
 	{
 		printf("Failed to load walking animation texture\n");
 		success = false;

@@ -143,7 +143,7 @@ bool load_media_surface(void)
 	/* loading success flag */
 	bool success = true;
 
-	if (!load_from_file(ss_texture, "17_mouse_events/button.png"))
+	if (!load_from_file(ss_texture, "foo/17_mouse_events/button.png"))
 	{
 		printf("Failed to load button sprite texture!\n");
 		success = false;

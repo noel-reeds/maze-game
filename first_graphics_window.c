@@ -1,4 +1,5 @@
 #include "main.h"
+#include "mouse.h"
 btt_e_handlr buttons[ TOTAL_BUTTONS ];
 SDL_Surface *KeyPressSurfaces[ KEY_PRESS_SURFACE_TOTAL ];
 SDL_Surface *screenSurface = NULL;

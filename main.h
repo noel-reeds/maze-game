@@ -71,15 +71,7 @@ enum ButtonSprite
 	BS_MOUSE_UP = 3,
 	BS_TOTAL = 4
 };
-
-typedef struct button_event_handler
-{
-	enum ButtonSprite current_sprite;
-	SDL_Point pos;
-} btt_e_handlr;
-
 /* game window initializations */
-extern btt_e_handlr buttons[ TOTAL_BUTTONS ];
 extern SDL_Rect *sprite_clips[ BS_TOTAL ];
 extern SDL_Surface *screenSurface;
 extern SDL_Window *window;

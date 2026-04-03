@@ -16,6 +16,4 @@ void initialize_button(btt_e_handlr *self);
 void set_button_position(btt_e_handlr *self, int x, int y);
 void handle_event(btt_e_handlr *self, SDL_Event *event);
 
-
-
 #endif

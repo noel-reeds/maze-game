@@ -77,7 +77,6 @@ enum ButtonSprite
 	BS_MOUSE_UP = 3,
 	BS_TOTAL = 4
 };
-
 /* game window initializations */
 extern SDL_Rect *sprite_clips[ BS_TOTAL ];
 extern SDL_Surface *screenSurface;

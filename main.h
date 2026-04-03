@@ -71,6 +71,7 @@ enum ButtonSprite
 	BS_MOUSE_UP = 3,
 	BS_TOTAL = 4
 };
+<<<<<<< HEAD
 
 typedef struct button_event_handler
 {
@@ -81,6 +82,22 @@ typedef struct button_event_handler
 /* game window initializations */
 extern btt_e_handlr buttons[ TOTAL_BUTTONS ];
 extern SDL_Rect *sprite_clips[ BS_TOTAL ];
+=======
+/*
+typedef struct button_event_handler
+{
+	SDL_Surface *buttons[ TOTAL_BUTTONS ];
+	void button_render(void);
+	void *handle_event(SDL_Event *event);
+	void *set_button_position(int x, int y);
+	void initialize_button(void);
+} button_e_handler;
+*/
+
+/* game window initializations */
+extern SDL_Rect *sprite_clips[ BS_TOTAL ];
+extern SDL_Surface *ButtonSprite[ TOTAL_BUTTONS ];
+>>>>>>> 88e43a0 (fix: mouse events)
 extern SDL_Surface *screenSurface;
 extern SDL_Window *window;
 extern SDL_Surface *currentSurface;
@@ -96,7 +113,10 @@ extern _Texture *ss_texture;
 extern _Texture *mod_texture;
 extern int map[MAP_WIDTH][MAP_LENGTH];
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 88e43a0 (fix: mouse events)
 int init_instance(SDL_Instance *);
 int poll_events(Player *player);
 void draw_map(SDL_Instance *instance);
@@ -106,6 +126,11 @@ int collision_detection(int x, int y);
 void render_3d_walls(SDL_Instance *instance, Player *player, Light *lights, int num_lights);
 float calculate_light_intensity(float x, float y, Light *lights, int num_lights);
 
+<<<<<<< HEAD
+=======
+void initialize_button(void);
+void set_button_position(int x, int y);
+>>>>>>> 88e43a0 (fix: mouse events)
 bool initialize_sdl(void);
 bool load_media_surface(void);
 void close_sdl(void);
@@ -127,10 +152,16 @@ void set_blend_mode(SDL_Texture *Texture, SDL_BlendMode blending);
 void set_alpha(uint8_t alpha);
 void render(SDL_Renderer *R, _Texture *T, int x, int y, SDL_Rect *_clip, double angle, SDL_Point *center, SDL_RendererFlip flip);
 bool load_from_rendered_text(char const *texture_text, SDL_Color text_color);
+<<<<<<< HEAD
 
 void button_render(btt_e_handlr *self);
 void initialize_button(btt_e_handlr *self);
 void set_button_position(btt_e_handlr *self, int x, int y);
 void handle_event(btt_e_handlr *self, SDL_Event *event);
+=======
+void initialize_button(void);
+void set_button_position(int x, int y);
+void handle_event(SDL_Event *event);
+>>>>>>> 88e43a0 (fix: mouse events)
 
 #endif

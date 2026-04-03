@@ -118,5 +118,4 @@ void set_blend_mode(SDL_Texture *Texture, SDL_BlendMode blending);
 void set_alpha(uint8_t alpha);
 void render(SDL_Renderer *R, _Texture *T, int x, int y, SDL_Rect *_clip, double angle, SDL_Point *center, SDL_RendererFlip flip);
 bool load_from_rendered_text(char const *texture_text, SDL_Color text_color);
-
 #endif

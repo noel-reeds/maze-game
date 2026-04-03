@@ -1,17 +1,16 @@
-# Compiles game with both gcc and sdl2 flags
-OBJS = 
+# Header and C source files
+src := $(wildcard *.c) $(wildcard *.h)
 
-# specifies compiler
-CC = gcc
+# Program for compiling C programs
+cc := gcc
 
-# Compiler flags
-COMPILER_FLAGS = -Wall -Werror -Wextra -pedantic
+# Extra flags to pass to C compiler
+cflags := -g -Wall -Werror -Wextra -pedantic -fsanitize=address,leak
 
-# Linker flags
-LINKER_FLAGS = sdl2-config --cflags --libs
+# Extra SDL2 flags
+sdl2_f := `sdl2-config --cflags --libs`
+sdl2_i := -lSDL2_image
+sdl2_ttf := -lSDL2_ttf
 
-# OBJ_NAME specifies the name of our exectuable
-OBJ_NAME = 06_extension_libraries_and_loading_other_image_formats
-
-# Target that compiles our executable
-all:
+maze_r: $(src)
+	$(cc) $(cflags) $(src) -o $@ $(sdl2_f) $(sdl2_i) $(sdl2_ttf)

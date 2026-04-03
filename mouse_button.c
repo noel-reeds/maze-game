@@ -1,4 +1,5 @@
 #include "main.h"
+#include "mouse.h"
 void initialize_button(btt_e_handlr *self)
 {
 	self->pos.x = 0;

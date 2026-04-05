@@ -1,5 +1,12 @@
 #include "main.h"
 #include "mouse.h"
+/* scene textures */
+_Texture *up;
+_Texture *down;
+_Texture *right;
+_Texture *left;
+_Texture *press;
+
 void initialize_button(btt_e_handlr *self)
 {
 	self->pos.x = 0;

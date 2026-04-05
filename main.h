@@ -7,7 +7,7 @@
 
 #define BUTTON_WIDTH 300
 #define BUTTON_HEIGHT 200
-#define TOTAL_BUTTONS 4
+#define TOTAL_BUTTONS 5
 #define MAP_WIDTH 9
 #define MAP_LENGTH 12
 #define CELL_SIZE 16
@@ -28,10 +28,16 @@
 
 typedef struct
 {
-	SDL_Texture *m_texture;
-	int width;
-	int height;
+    SDL_Texture *m_texture;
+    int width;
+    int height;
 } _Texture;
+
+extern _Texture *up;
+extern _Texture *down;
+extern _Texture *right;
+extern _Texture *left;
+extern _Texture *press;
 
 typedef struct
 {
@@ -71,6 +77,7 @@ enum ButtonSprite
 	BS_MOUSE_UP = 3,
 	BS_TOTAL = 4
 };
+
 /* game window initializations */
 extern SDL_Rect *sprite_clips[ BS_TOTAL ];
 extern SDL_Surface *screenSurface;

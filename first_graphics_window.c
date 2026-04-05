@@ -23,12 +23,12 @@ int main(void)
 	{
 
 		/* Allocate memory for texture structs */
-		ss_texture = malloc(sizeof(_Texture));
-		for (int m = 0; m < BS_TOTAL; m++)
-		{
-			sprite_clips[m] = malloc(sizeof(SDL_Rect));
-		}
-	
+		press = malloc(sizeof(_Texture));
+		up = malloc(sizeof(_Texture));
+		down = malloc(sizeof(_Texture));
+		left = malloc(sizeof(_Texture));
+		right = malloc(sizeof(_Texture));
+
 		if (!load_media_surface())
 		{
 			printf("Failed to load media!\n");
@@ -37,9 +37,9 @@ int main(void)
 		{
 			/* window to stay up */
 			bool quit = false;
-			/* event handler */
 			SDL_Event event_e;
-			/* while application is running */
+			/* current rendered texture */
+			_Texture *current_texture = NULL;
 			while (!quit)
 			{
 				while (SDL_PollEvent(&event_e) != 0)
@@ -47,19 +47,24 @@ int main(void)
 					/* user requests quit */
 					if (event_e.type == SDL_QUIT)
 						quit = true;
-					/* handle buttons events */
-					for (int y = 0; y < TOTAL_BUTTONS; y++)
-					{
-						handle_event(&buttons[y], &event_e);
-					}
+					/* set texture based on the current key state */
+					const Uint8 *keystates = SDL_GetKeyboardState(NULL);
+					if (keystates[SDL_SCANCODE_INSERT])
+						current_texture = up;
+					if  (keystates[SDL_SCANCODE_PAGEDOWN])
+						current_texture = down;
+					if (keystates[SDL_SCANCODE_RIGHT])
+						current_texture = right;
+					if (keystates[SDL_SCANCODE_LEFT])
+						current_texture = left;
+					else
+						current_texture = press;
 				}
 				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(renderer);
-				/* render buttons */
-				for (int x = 0; x < TOTAL_BUTTONS; x++)
-				{
-					button_render(&buttons[x]);
-				}
+				/* render current texture */
+				render(renderer, current_texture,
+						0, 0, NULL, 0.0, NULL, SDL_FLIP_NONE);
 				SDL_RenderPresent(renderer);
 			}
 		}
@@ -144,29 +149,16 @@ bool load_media_surface(void)
 	/* loading success flag */
 	bool success = true;
 
-	if (!load_from_file(ss_texture, "foo/17_mouse_events/button.png"))
-	{
-		printf("Failed to load button sprite texture!\n");
+	if (!load_from_file(press, "18_key_states/press.png"))
 		success = false;
-	}
-
-	else
-	{
-		/* set sprites */
-		for (int i = 0; i < BS_TOTAL; i++)
-		{
-			sprite_clips[i]->x = 0;
-			sprite_clips[i]->y = i * 200;
-			sprite_clips[i]->w = BUTTON_WIDTH;
-			sprite_clips[i]->h = BUTTON_HEIGHT;
-		}
-		/* set buttons in corners */
-		set_button_position(&buttons[0], 0, 0);
-		set_button_position(&buttons[1], SCREEN_WIDTH - BUTTON_WIDTH, 0);
-		set_button_position(&buttons[2], 0, SCREEN_HEIGHT - BUTTON_HEIGHT);
-		set_button_position(&buttons[3], SCREEN_WIDTH - BUTTON_WIDTH,
-								SCREEN_HEIGHT - BUTTON_HEIGHT);
-	}
+	if (!load_from_file(up, "18_key_states/up.png"))
+		success = false;
+	if (!load_from_file(down, "18_key_states/down.png"))
+		success = false;
+	if (!load_from_file(left, "18_key_states/left.png"))
+		success = false;
+	if (!load_from_file(right, "18_key_states/right.png"))
+		success = false;
 	return (success);
 }
 

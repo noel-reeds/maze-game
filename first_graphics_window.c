@@ -85,13 +85,16 @@ bool initialize_sdl(void)
 	/* initialization flag */
 	bool success = true;
 	/* initialize SDL */
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0)
 	{
 		printf("SDL could not initialize! SDL_Error: %s", SDL_GetError());
 		success = false;
 	}
 	else
 	{
+		/* check for joysticks */
+		if (SDL_NumJoysticks() < 1)
+			printf("Warning: No joysticks connected\n");
 		/* create a window */
 		window = SDL_CreateWindow(
 				"MAZE GAME!", SDL_WINDOWPOS_UNDEFINED,

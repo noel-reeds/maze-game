@@ -24,13 +24,13 @@ int main(void)
 					if (event_e.type == SDL_QUIT)
 						quit = true;
 					handle_keyboard_event(&player8, event_e);
-				}	
+				}
 				SDL_SetRenderDrawColor(ctx->rndr, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(ctx->rndr);
 				render(ctx->rndr, texture,
 						0, 0, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
-				SDL_SetRenderDrawColor(ctx->rndr, 0xFF, 0x00, 0x00, 0x00);
+				SDL_SetRenderDrawColor(ctx->rndr, 0x00, 0x00, 0x00, 0xFF);
 				SDL_RenderFillRect(ctx->rndr, &wall);
 				SDL_RenderPresent(ctx->rndr);
 			}

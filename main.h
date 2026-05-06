@@ -2,8 +2,8 @@
 #define _MAIN_H_
 
 /* screen dimension constants */
-#define SCREEN_WIDTH 600
-#define SCREEN_HEIGHT 600
+#define SCREEN_WIDTH 480
+#define SCREEN_HEIGHT 480
 
 #define BUTTON_WIDTH 300
 #define BUTTON_HEIGHT 200
@@ -33,17 +33,11 @@ typedef struct
     int height;
 } _Texture;
 
-extern _Texture *up;
-extern _Texture *down;
-extern _Texture *right;
-extern _Texture *left;
-extern _Texture *press;
-
-typedef struct
+typedef struct SDL_Instance
 {
 	SDL_Window *window;
-	SDL_Renderer *renderer;
-} SDL_Instance;
+	SDL_Renderer *rndr;
+} SDL_Context;
 
 
 typedef struct
@@ -57,60 +51,28 @@ typedef struct {
 	float intensity;
 } Light;
 
-/* Key press surface constants */
-enum KeyPressSurfaces
-{
-	KEY_PRESS_SURFACE_DEFAULT,
-	KEY_PRESS_SURFACE_UP,
-	KEY_PRESS_SURFACE_DOWN,
-	KEY_PRESS_SURFACE_LEFT,
-	KEY_PRESS_SURFACE_RIGHT,
-	KEY_PRESS_SURFACE_TOTAL
-};
-
-/* enum for buttons */
-enum ButtonSprite
-{
-	BS_MOUSE_OUT = 0,
-	BS_MOUSE_OVER_MOTION = 1,
-	BS_MOUSE_DOWN = 2,
-	BS_MOUSE_UP = 3,
-	BS_TOTAL = 4
-};
-
 /* game window initializations */
-extern SDL_Rect *sprite_clips[ BS_TOTAL ];
 extern SDL_Surface *screenSurface;
-extern SDL_Window *window;
+extern SDL_Context *ctx;
 extern SDL_Surface *currentSurface;
-extern SDL_Surface *KeyPressSurfaces[ KEY_PRESS_SURFACE_TOTAL ];
-extern SDL_Renderer *renderer;
-extern TTF_Font *font;
-extern SDL_Texture *texture;
-extern _Texture *foo_texture;
-extern _Texture *bg_texture;
-extern SDL_Point pos;
-extern _Texture *ss_texture;
+extern _Texture *texture;
 
-extern _Texture *mod_texture;
-extern int map[MAP_WIDTH][MAP_LENGTH];
-
-
-int init_instance(SDL_Instance *);
+int init_instance(SDL_Context *);
 int poll_events(Player *player);
-void draw_map(SDL_Instance *instance);
-void render_rays(SDL_Instance *instance);
-void create_player(SDL_Instance *instance, Player *player);
+void draw_map(SDL_Context *instance);
+void render_rays(SDL_Context *instance);
+void create_player(SDL_Context *instance, Player *player);
 int collision_detection(int x, int y);
-void render_3d_walls(SDL_Instance *instance, Player *player, Light *lights, int num_lights);
+void render_3d_walls(SDL_Context *instance, Player *player, Light *lights, int num_lights);
 float calculate_light_intensity(float x, float y, Light *lights, int num_lights);
 
-bool initialize_sdl(void);
+bool init_sdl_libr(void);
 bool load_media_surface(void);
 void close_sdl(void);
 SDL_Surface *load_surface(const char *surface_path);
 SDL_Texture *load_texture(const char *image_path);
 bool load_media_texture(void);
+void init_vars(void);
 void render_red_filled_quad(void);
 void render_green_outlined_quad(void);
 void draw_blue_horizontal_line(void);

@@ -12,5 +12,5 @@ sdl2_f := `sdl2-config --cflags --libs`
 sdl2_i := -lSDL2_image
 sdl2_ttf := -lSDL2_ttf
 
-maze_r: $(src)
+cols: $(src)
 	$(cc) $(cflags) $(src) -o $@ $(sdl2_f) $(sdl2_i) $(sdl2_ttf)

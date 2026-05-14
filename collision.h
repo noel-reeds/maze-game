@@ -6,7 +6,7 @@ typedef struct player_collision
 {
 	int pos_x, pos_y;
 	int vel_x, vel_y;
-	SDL_Rect m_cols;
+	SDL_Rect collider;
 	int p8_width;
 	int p8_height;
 	int p8_velocity;

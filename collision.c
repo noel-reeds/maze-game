@@ -11,8 +11,8 @@ void init_var(collision_handlr *self) {
 	self->pos_x = 0;
 	self->pos_y = 0;
 
-	self->m_cols.w = self->p8_width;
-	self->m_cols.h = self->p8_height;
+	self->collider.w = self->p8_width;
+	self->collider.h = self->p8_height;
 
 	self->vel_x = 0;
 	self->vel_y = 0;
@@ -20,19 +20,19 @@ void init_var(collision_handlr *self) {
 
 void move_player(collision_handlr *self, SDL_Rect wall) {
 	self->pos_x += self->vel_x;
-	self->m_cols.x = self->pos_x;
+	self->collider.y = self->pos_x;
 
-	if (self->pos_x < 0 || self->pos_x + self->p8_width > SCREEN_WIDTH || 
-			check_collision(self, self->m_cols, wall)) {
+	if (self->pos_x < 0 || self->pos_x + self->p8_width > SCREEN_WIDTH ||
+				check_collision(self, self->collider, wall)) {
 		self->pos_x -= self->vel_x;
-		self->m_cols.x = self->pos_x;
+		self->collider.y = self->pos_x;
 	}
 	self->pos_y += self->vel_y;
-	self->m_cols.y = self->pos_y;
+	self->collider.x = self->pos_y;
 	if (self->pos_y < 0 || self->pos_y + self->p8_height > SCREEN_HEIGHT ||
-				check_collision(self, self->m_cols, wall)) {
+				check_collision(self, self->collider, wall)) {
 		self->pos_y -= self->vel_y;
-		self->m_cols.y = self->pos_y;
+		self->collider.x = self->pos_y;
 	}
 }
 
@@ -54,7 +54,7 @@ bool check_collision(collision_handlr *self, SDL_Rect a, SDL_Rect b) {
 	top_b = b.y;
 	bottom_b = b.y + b.h;
 
-	if (bottom_a <= top_b)
+	if (bottom_a <= top_b && right_a <= left_b)
 		return false;
 	if (top_a >= bottom_b)
 		return false;

@@ -54,13 +54,9 @@ bool check_collision(collision_handlr *self, SDL_Rect a, SDL_Rect b) {
 	top_b = b.y;
 	bottom_b = b.y + b.h;
 
-	if (bottom_a <= top_b && right_a <= left_b)
+	if (bottom_a <= top_b || right_a <= left_b)
 		return false;
-	if (top_a >= bottom_b)
-		return false;
-	if (right_a <= left_a)
-		return false;
-	if (left_a >= right_b)
+	if (top_a >= bottom_b || left_a >= right_b)
 		return false;
 	return true;
 }

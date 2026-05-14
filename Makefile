@@ -5,7 +5,7 @@ src := $(wildcard *.c) $(wildcard *.h)
 cc := gcc
 
 # Extra flags to pass to C compiler
-cflags := -g -Wall -Werror -Wextra -pedantic -fsanitize=address,leak
+cflags := -g -Wall -Werror -Wextra -pedantic #-fsanitize=address,leak
 
 # Extra SDL2 flags
 sdl2_f := `sdl2-config --cflags --libs`

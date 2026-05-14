@@ -4,18 +4,10 @@
  *
  * Return: void.
  */
-void close_sdl(void)
+void close_sdl2(void)
 {
-	/* Free textures and structs */
-	free_texture(texture);
-	/* deallocate surface */
-	SDL_DestroyTexture(texture->m_texture);
+	free_texture_structs(texture, ctx);
 	texture = NULL;
-	/* destroy window */
-	SDL_DestroyRenderer(ctx->rndr);
-	SDL_DestroyWindow(ctx->window);
-	ctx->window = NULL;
-	ctx->rndr = NULL;
-
+	ctx = NULL;
 	SDL_Quit();
 }

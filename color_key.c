@@ -27,14 +27,21 @@ bool load_from_file(_Texture *T, const char *str_path)
 	return (T->m_texture != NULL);
 }
 
-void free_texture(_Texture *T)
+void free_texture_structs(_Texture *custom, SDL_Context *context)
 {
-	if (!T->m_texture)
-	{
-		SDL_DestroyTexture(T->m_texture);
-		T->m_texture = NULL;
-		T->width = 0;
-		T->height = 0;
+	if (custom) {
+		SDL_DestroyTexture(custom->m_texture);
+		custom->m_texture = NULL;
+		custom->width = 0;
+		custom->height = 0;
+		free(custom);
+	}
+	if (context) {
+		SDL_DestroyRenderer(context->rndr);
+		SDL_DestroyWindow(context->window);
+		context->rndr = NULL;
+		context->window = NULL;
+		free(context);
 	}
 }
 

@@ -68,7 +68,7 @@ float calculate_light_intensity(float x, float y, Light *lights, int num_lights)
 
 bool init_sdl_libr(void);
 bool load_media_surface(void);
-void close_sdl(void);
+void close_sdl2(void);
 SDL_Surface *load_surface(const char *surface_path);
 SDL_Texture *load_texture(const char *image_path);
 bool load_media_texture(void);
@@ -81,7 +81,7 @@ void top_left_corner_viewport(void);
 void top_right_corner_viewport(void);
 void bottom_centre_viewport(void);
 bool load_from_file(_Texture *T, const char *str_path);
-void free_texture(_Texture *T);
+void free_texture_structs(_Texture *T, SDL_Context *context);
 void set_color(uint8_t red, uint8_t green, uint8_t blue);
 void set_color(uint8_t red, uint8_t green, uint8_t blue);
 void set_blend_mode(SDL_Texture *Texture, SDL_BlendMode blending);

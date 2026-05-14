@@ -25,18 +25,20 @@ int main(void)
 						quit = true;
 					handle_keyboard_event(&player8, event_e);
 				}
+				move_player(&player8, wall);
 				SDL_SetRenderDrawColor(ctx->rndr, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(ctx->rndr);
-				render(ctx->rndr, texture,
-						0, 0, NULL, 0.0, NULL, SDL_FLIP_NONE);
+				render(ctx->rndr, texture, player8.pos_y, player8.pos_x,
+						NULL, 0.0, NULL, SDL_FLIP_NONE);
 
 				SDL_SetRenderDrawColor(ctx->rndr, 0x00, 0x00, 0x00, 0xFF);
 				SDL_RenderFillRect(ctx->rndr, &wall);
+				SDL_RenderFillRect(ctx->rndr, &player8.collider);
 				SDL_RenderPresent(ctx->rndr);
 			}
 		}
 		SDL_Log("Event queue is empty.");
-		close_sdl();
+		close_sdl2();
 	}
 	return (0);
 }
